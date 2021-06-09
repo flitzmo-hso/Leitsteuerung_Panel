@@ -1,4 +1,4 @@
-# Leitsteuerung_Panel
+# Leitsteuerung - Panel
 
 This is the git repository of the agv control panel. <br>
 
