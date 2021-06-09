@@ -1,5 +1,7 @@
-.App {
+App {
   text-align: center;
+  background-color: #282828;
+  color: white;
 }
 
 .App-logo {
@@ -14,7 +16,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #282828;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -35,4 +37,8 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.active {
+  color: red;
 }

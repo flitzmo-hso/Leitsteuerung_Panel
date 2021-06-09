@@ -5,7 +5,6 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import ManualOrder from './ManualOrder.js';
 
 
 //Set Style
@@ -53,25 +52,38 @@ export default function Dashboard() {
 
             <Grid item xs={12} md={6} lg={9}>
               <Paper className={fixedHeightPaper}>
-                <ManualOrder />
+            Flitzmo Map 
               </Paper>
             </Grid>
 
             <Grid item xs={12} md={6} lg={3}>
               <Paper className={classes.paper} style={{  padding: 0, marginBottom: 3, flexDirection: "revert"}}>
-               <h2>&nbsp; Auslastung</h2>
+               <h2>&nbsp; Kennzahl 1</h2>
               </Paper>
               <Paper className={classes.paper} style={{  padding: 0, marginBottom: 3, flexDirection: "revert" }}>
-               <h2>&nbsp; Fortschritt</h2>
+               <h2>&nbsp; Kennzahl 2</h2>
               </Paper>
               <Paper className={classes.paper} style={{  padding: 0, margin: 1, flexDirection: "revert" }}>
-               <h2>&nbsp; Privatkunden</h2>
+               <h2>&nbsp; Kennzahl 3</h2>
               </Paper>
             </Grid>  
 
             <Grid item xs={12} md={12}>
               <Paper className={classes.paper}>
-           
+                Aktive Fahraufträge auf den ersten Blick 
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
               </Paper>
             </Grid>
 
