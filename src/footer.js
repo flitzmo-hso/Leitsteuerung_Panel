@@ -2,7 +2,7 @@ import React from "react";
 
 const Footer = () => (
 <div className="footer">
-    Powered by ©BlackForestConsulting
+    Powered by ©Flitzmo
 </div>
 
 );
