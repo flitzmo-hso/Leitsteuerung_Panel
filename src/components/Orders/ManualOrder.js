@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import Button from '@material-ui/core/Button';
 import axios from "axios";
 
-export default function ManualTask() {
+export default function ManualOrder() {
 
  const [DeliveryVisibility, setDeliveryVisibility] = useState("inline");
  const [LoopVisibility, setLoopVisibility] = useState("none");

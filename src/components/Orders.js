@@ -1,10 +1,10 @@
 import React from 'react';
-import ManualOrder from './Orders/ManualOrder.js';
+import TabChange from './Orders/TabChange.js';
 
 const Orders = () => {
     return (
         <div >
-         <ManualOrder/>
+         <TabChange/>
         </div>
     )
 }

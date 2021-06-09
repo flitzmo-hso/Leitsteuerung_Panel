@@ -14,9 +14,9 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import FolderSpecialIcon from '@material-ui/icons/FolderSpecial';
 import HomeIcon from '@material-ui/icons/Home';
-import Event from '@material-ui/icons/Event';
-import SettingsApplicationsIcon from '@material-ui/icons/SettingsApplications';
+import AdbIcon from '@material-ui/icons/Adb';
 import SettingsIcon from '@material-ui/icons/Settings';
 import HelpIcon from '@material-ui/icons/Help';
 import { Link } from 'react-router-dom';
@@ -226,14 +226,14 @@ function App() {
          <ListItem button component={Link} to="/Orders" key="Orders" className={classes.activeTab} selected={selectedIndex === 1}
           onClick={event => handleListItemClick(event, 1)}>
             <ListItemIcon>
-              <Event style={{fill: "#fff6e5"}}/>
+              <FolderSpecialIcon style={{fill: "#fff6e5"}}/>
             </ListItemIcon>
             <ListItemText primary="Orders" />   
          </ListItem>
          <ListItem button component={Link} to="/Robots" key="Robots" className={classes.activeTab} selected={selectedIndex === 2}
           onClick={event => handleListItemClick(event, 2)}>
             <ListItemIcon>
-              <SettingsApplicationsIcon style={{fill: "#fff6e5"}}/>
+              <AdbIcon style={{fill: "#fff6e5"}}/>
             </ListItemIcon>
             <ListItemText primary="Robots" />   
          </ListItem>
