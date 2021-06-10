@@ -32,8 +32,8 @@ export default function ManualOrder() {
       if (startzeit === '' || prio === '' || auftragDelivery === '')
          { return undefined; }
 
-      obj['task_type'] = "Delivery"; obj['start_time'] = startzeit; obj['priority'] = prio; 
-      obj['description'] = {"option": auftragDelivery};
+      obj['task_type'] = "Delivery"; obj['start_time'] = parseInt(startzeit); obj['priority'] = parseInt(prio); 
+      obj["description"] = {"option": auftragDelivery};
     }
 
     //Loop Order
@@ -42,8 +42,8 @@ export default function ManualOrder() {
       if(startzeit === '' || prio === '' || numberLoops === '' || 
          numberLoops === 0 || startLoc === '' || endLoc === '')  { return undefined;} 
   
-      obj['task_type'] = "Loop"; obj['start_time'] = startzeit; obj['priority'] = prio;
-      obj['description'] = {"num_loops": numberLoops , "start_name": startLoc, "finish_name": endLoc};
+      obj['task_type'] = "Loop"; obj['start_time'] = parseInt(startzeit); obj['priority'] = parseInt(prio);
+      obj['description'] = {"num_loops": parseInt(numberLoops) , "start_name": startLoc, "finish_name": endLoc};
    
     }
 
@@ -53,12 +53,16 @@ export default function ManualOrder() {
 
 
   function sendToAgv(){
-
+    
     var objVal = getFormValues();
     if(objVal === undefined || objVal.length === 0) {alert("Bitte richtige Daten eingeben."); return;} 
     console.log("Auftrag:", objVal)
-
-    axios.post('http://0.0.0.0:8080/submit_task', objVal)
+    objVal.forEach(element => {
+      console.log(element)
+    });
+ 
+    //axios.post('http://0.0.0.0:8080/submit_task', objVal)
+    axios.post('http://0.0.0.0:8080/submit_task',[{'task_type':"Loop", 'start_time':0, 'priority':0, 'description': {'num_loops':5, 'start_name':"coe", 'finish_name':"lounge"}}])
     .then(res => {
     console.log("RESPONSE:", res);
     alert("Erfolgreich übermittelt."); 

@@ -9,12 +9,13 @@ export default function ERPOrders() {
    {name: "O_ID", label: "Order-Nr", options: {filter: true, sort: true, display: true}}, 
    {name: "O_TIMESTAMP", label: "Zeit", options: {filter: true, sort: true, display: true}},
    {name: "O_PRIO", label: "Priorität",  options: {filter: true,  sort: true, display: true}}, 
-   {name: "O_WH_IDFROM", label: "O_WH_IDFROM", options: {filter: true, sort: true, display: true}},
+   {name: "O_WH_IDFROM", label: "O_WH_IDFROM", options: {filter: false, sort: false, display: false}},
    {name: "O_WH_IDTO", label: "O_WH_IDTO", options: {filter: false, sort: true, display: false}},  
-   {name: "O_WH_COORDINATEFROM", label: "O_WH_COORDINATEFROM", options: {filter: true, sort: true, display: true}}, 
-   {name: "O_WH_COORDINATETO", label: "O_WH_COORDINATETO", options: {filter: false, sort: true, display: false}}, 
-   {name: "O_FT_IDREQUIREMENT", label: "O_FT_IDREQUIREMENT", options: {filter: true, sort: false, display: false}},
-   {name: "O_OS_ID", label: "O_OS_ID",options: {filter: true,sort: false,display: false}} 
+   {name: "O_WH_COORDINATEFROM", label: "Koordinate Von", options: {filter: true, sort: true, display: true}}, 
+   {name: "O_WH_COORDINATETO", label: "Koordinate Nach", options: {filter: true, sort: true, display: true}}, 
+   {name: "O_FT_IDREQUIREMENT", label: "Benötiges Anbaugerät", options: {filter: true, sort: true, display: true}},
+   {name: "O_OS_ID", label: "O_OS_ID",options: {filter: false, sort: false,display: false}},
+   {name: "OS_DESC", label: "Status",options: {filter: true,sort: true,display: true}} 
    ];
 
   const options = {rowsPerPage: 5, customToolbarSelect: () => { }, filterType: 'checkbox', download: false, 
@@ -28,17 +29,18 @@ export default function ERPOrders() {
   
   //Load data
   function DatenLaden(){
-    axios.get('**GETDATAFROMMYSQL**')
+    axios.get('http://0.0.0.0:8080/getDBOrders')
     .then(res => {
     console.log("RESPONSE:", res); //Data from Gateway
 
-    if(res.data.body.length === 0) { //Check if data is available
+    if(res.data.length === 0) { //Check if data is available
       setAllData(undefined);
       return;
     }
 
-    if (DataAreEqual(allData, res.data.body)) return; //Check if data has changed       
-    setAllData(res.data.body); //Set new table data
+    if (DataAreEqual(allData, res.data)) return; //Check if data has changed    
+    console.log("Data:", res.data);    
+    setAllData(res.data); //Set new table data
 
     })
     .catch(err => {
@@ -57,25 +59,24 @@ export default function ERPOrders() {
 
     function SubmitOrders() {
         console.log("Ausgewählte Datensätze:", selectedData);
-        console.log("Ausgewählte PKs:", filterPks(selectedData));
+
+        if(selectedData === undefined || selectedData.length === 0) {
+          alert("Bitte Datensatz auswählen!"); return; 
+        }
+
+          axios.post('http://0.0.0.0:8080/submit_task', selectedData)
+          .then(res => {
+          console.log("RESPONSE:", res);
+          alert("Erfolgreich übermittelt."); 
+        
+          })
+          .catch(err => {
+              console.log(err.message); //Error-Handling
+              alert("Fehler.");  
+        
+          }) 
     }
 
-
-//Get only primary keys from selected orders
-function filterPks(selectedData){
-  var _pks = [];
- //TODO: RICHTIGE PKS nehmen
-  /*selectedData.forEach(element => {
-    var singleVal = {};
-    singleVal["O_NR"] = element["O_NR"];
-    singleVal["OI_NR"] = element["OI_NR"];
-    singleVal["PO_CODE"] = element["PO_CODE"];
-    singleVal["PO_COUNTER"] = element["PO_COUNTER"];
-    _pks.push(singleVal);
-  }); */ 
-
-  return _pks; 
-}
 
 
 //RowSelectEvent
@@ -107,7 +108,12 @@ function rowSelectEvent(curRowSelected, allRowsSelected){
         options={options}/>
     <br/>
     <br/>
-    <Button variant="contained" onClick={SubmitOrders} title="Mit Klick auf diesen Button werden alle ausgewählten Transportaufträge übermittelt."/>
+    <Button style={{backgroundColor: "gray"}}
+    variant="contained" 
+    onClick={SubmitOrders} 
+    title="Mit Klick auf diesen Button werden alle ausgewählten Transportaufträge übermittelt.">
+       Absenden
+    </Button>
    
     </div>
   );
