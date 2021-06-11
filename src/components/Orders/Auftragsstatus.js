@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import axios from "axios";
-import { ChartDonut } from '@patternfly/react-charts';
+import { ChartDonut,  ChartThemeColor } from '@patternfly/react-charts';
 import CardContent from '@material-ui/core/CardContent';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
@@ -12,13 +12,16 @@ import Grid from "@material-ui/core/Grid";
 import AndroidIcon from '@material-ui/icons/Android';
 
 
-
 export default function Auftragsstatus() {
 
-const [allData, setAllData] = useState([]); 
 const [cardData, setCardData] = useState([])
 
-useEffect(() => {getTaskStates();});
+
+useEffect(() => {
+  getTaskStates()
+  const interval = setInterval(() => { getTaskStates() }, 2000)
+  return ()=> clearInterval(interval)
+}, []);
 
 function getTaskStates(){
 
@@ -31,8 +34,6 @@ function getTaskStates(){
       return;
     }
    
-    if(DataAreEqual(res.data)) return;
-    setAllData(res.data); //Set new table data
     setCardData(res.data);
 
     })
@@ -41,15 +42,6 @@ function getTaskStates(){
     })
 }
 
-
-  //Check if old data = new data
-  function DataAreEqual(newData){
-
-    if(newData.sort().join(',') === allData.sort().join(',')){
-      return true;
-      }
-      else return false;
-    }
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -62,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
 
   return (
     <div className={classes.root}>
-      <Grid
+      <Grid id="grid"
         container
         spacing={2}
         direction="row"
@@ -86,18 +78,16 @@ const useStyles = makeStyles((theme) => ({
                 title={`Task-ID: ${elem['task_id']}`}
                 subheader={`Typ: ${elem['task_type']}`}
               />
-
-
               <CardContent>
               <ChartDonut
                 ariaDesc="Batteriestatus"
                 ariaTitle="Batteriestatus"
                 constrainToVisibleArea={true}
-                data={[{ x: '', y: parseInt(elem['progress'][-1])}, {x: '', y: 100-parseInt(elem['progress'][-1]) }]}
+                data={[{ x: '', y: parseInt(elem['progress'].slice(0, -1))}, {x: '', y: 100-(parseInt(elem['progress'].slice(0, -1))) }]}
                 height={90}
                 width={190}
                 labels={({ datum }) => `${elem['progress']}`}
-                //themeColor={ }
+                themeColor={ ChartThemeColor.default}
                 title= {elem['progress']}
                 padding={{
                 bottom: 0,
@@ -125,3 +115,4 @@ const useStyles = makeStyles((theme) => ({
   </div>
   );
 }
+
