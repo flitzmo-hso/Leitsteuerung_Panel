@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import Button from '@material-ui/core/Button';
 import axios from "axios";
+import Paper from '@material-ui/core/Paper';
 
 export default function ManualOrder() {
 
@@ -96,9 +97,9 @@ export default function ManualOrder() {
   } 
 
   return (
-    <div>
+    <div align="left" justify="left" alignItems="left">
  <p>Manueller Fahrauftrag</p>
- <table align="center"> 
+ <table > 
       <tr>
         <td colspan="1" >
         <select name="auftragstyp"  id="auftragstyp" onChange={e => dropDownChange(e.target.value)}>

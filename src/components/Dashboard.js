@@ -6,6 +6,9 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 
+import KpiAuslastung from './Dashboard/KPI_Auslastung.js';
+import Uhrzeit from './Dashboard/Uhrzeit.js';
+
 
 //Set Style
 const drawerWidth = 240;
@@ -58,10 +61,11 @@ export default function Dashboard() {
 
             <Grid item xs={12} md={6} lg={3}>
               <Paper className={classes.paper} style={{  padding: 0, marginBottom: 3, flexDirection: "revert"}}>
-               <h2>&nbsp; Kennzahl 1</h2>
+                  <KpiAuslastung/>  <h2>&nbsp; Auslastung</h2>
+            
               </Paper>
               <Paper className={classes.paper} style={{  padding: 0, marginBottom: 3, flexDirection: "revert" }}>
-               <h2>&nbsp; Kennzahl 2</h2>
+              <div style={{paddingLeft: "6%"}}>  <Uhrzeit/> </div>
               </Paper>
               <Paper className={classes.paper} style={{  padding: 0, margin: 1, flexDirection: "revert" }}>
                <h2>&nbsp; Kennzahl 3</h2>

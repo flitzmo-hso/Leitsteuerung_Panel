@@ -17,18 +17,18 @@ import ListItemText from '@material-ui/core/ListItemText';
 import FolderSpecialIcon from '@material-ui/icons/FolderSpecial';
 import HomeIcon from '@material-ui/icons/Home';
 import AdbIcon from '@material-ui/icons/Adb';
-import SettingsIcon from '@material-ui/icons/Settings';
+import MapIcon from '@material-ui/icons/Map';
 import HelpIcon from '@material-ui/icons/Help';
 import { Link } from 'react-router-dom';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Footer from './footer.js';
 
 // Import Pages
-import Dashboard from './components/Dashboard';
-import Orders from './components/Orders';
-import Robots from './components/Robots';
-import Hilfebereich from './components/Hilfebereich';
-import Einstellungen from './components/Einstellungen';
+import Dashboard from './components/Dashboard.js';
+import Orders from './components/Orders.js';
+import Robots from './components/Robots.js';
+import Map from './components/Map/Map.js';
+import Hilfebereich from './components/Hilfebereich.js';
 
 
 const drawerWidth = 240;
@@ -135,10 +135,26 @@ function App() {
     if(window.location.href.endsWith("3000")){
       setSelectedIndex(0);
     }
-    else if(window.location.href.endsWith("orders")){
+    else if(window.location.href.endsWith("Orders")){
 
        setSelectedIndex(1);
      } 
+     else if(window.location.href.endsWith("Robots")){
+
+      setSelectedIndex(2);
+    } 
+    else if(window.location.href.endsWith("Map")){
+
+      setSelectedIndex(3);
+    } 
+    else if(window.location.href.endsWith("Hilfebereich")){
+
+      setSelectedIndex(4);
+    } 
+    else if(window.location.href.endsWith("Einstellungen")){
+
+      setSelectedIndex(5);
+    } 
      
     }, []);
 
@@ -237,6 +253,13 @@ function App() {
             </ListItemIcon>
             <ListItemText primary="Robots" />   
          </ListItem>
+         <ListItem button component={Link} to="/Map" key="Map" className={classes.activeTab} selected={selectedIndex === 3}
+          onClick={event => handleListItemClick(event, 3)}>
+            <ListItemIcon>
+              <MapIcon style={{fill: "#fff6e5"}}/>
+            </ListItemIcon>
+            <ListItemText primary="Map" />   
+         </ListItem>
         </List>
 
         <List>
@@ -246,14 +269,7 @@ function App() {
               <HelpIcon style={{fill: "#fff6e5"}} />
             </ListItemIcon>
             <ListItemText primary="Hilfebereich" />   
-         </ListItem>
-        <ListItem button component={Link} to="/Einstellungen" key="Einstellungen" className={classes.activeTab} selected={selectedIndex === 5}
-          onClick={event => handleListItemClick(event, 5)}>
-            <ListItemIcon>
-              <SettingsIcon style={{fill: "#fff6e5"}} />
-            </ListItemIcon>
-            <ListItemText primary="Einstellungen" />   
-         </ListItem>     
+         </ListItem>  
         </List>  
         <Divider />
    
@@ -271,12 +287,13 @@ function App() {
             <Route exact path="/Robots">
               <Robots />
             </Route>
+            <Route exact path="/Map">
+              <Map />
+            </Route>
             <Route exact path="/Hilfebereich">
               <Hilfebereich />
             </Route>
-            <Route exact path="/Einstellungen">
-              <Einstellungen/>
-            </Route>
+            
           </Switch>
       </main>
       </Router>

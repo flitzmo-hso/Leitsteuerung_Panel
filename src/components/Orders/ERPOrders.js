@@ -57,24 +57,26 @@ export default function ERPOrders() {
       else return false;
     }
 
-    function SubmitOrders() {
-        console.log("Ausgewählte Datensätze:", selectedData);
+  //Submit selected Table Orders
+  function SubmitOrders() {
 
-        if(selectedData === undefined || selectedData.length === 0) {
-          alert("Bitte Datensatz auswählen!"); return; 
-        }
+    console.log("Ausgewählte Datensätze:", selectedData);
 
-          axios.post('http://0.0.0.0:8080/submit_task', selectedData)
-          .then(res => {
-          console.log("RESPONSE:", res);
-          alert("Erfolgreich übermittelt."); 
-        
-          })
-          .catch(err => {
-              console.log(err.message); //Error-Handling
-              alert("Fehler.");  
-        
-          }) 
+    if(selectedData === undefined || selectedData.length === 0) {
+      alert("Bitte Datensatz auswählen!"); return; 
+    }
+
+      axios.post('http://0.0.0.0:8080/submit_task', selectedData)
+      .then(res => {
+      console.log("RESPONSE:", res);
+      alert("Erfolgreich übermittelt."); 
+    
+      })
+      .catch(err => {
+          console.log(err.message); //Error-Handling
+          alert("Fehler.");  
+    
+      }) 
     }
 
 
