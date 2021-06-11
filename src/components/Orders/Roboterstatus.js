@@ -14,28 +14,6 @@ import Grid from "@material-ui/core/Grid";
 import AndroidIcon from '@material-ui/icons/Android';
 
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    maxWidth: 345,
-  },
-  media: {
-    height: 0,
-    paddingTop: '56.25%', // 16:9
-  },
-  expand: {
-    transform: 'rotate(0deg)',
-    marginLeft: 'auto',
-    transition: theme.transitions.create('transform', {
-      duration: theme.transitions.duration.shortest,
-    }),
-  },
-  expandOpen: {
-    transform: 'rotate(180deg)',
-  },
-  avatar: {
-    backgroundColor: red[500],
-  },
-}));
 
 export default function Roboterstatus() {
 
@@ -95,39 +73,39 @@ const useStyles = makeStyles((theme) => ({
 
         {cardData.map((elem) => (
           <Grid item xs={3} key={cardData.indexOf(elem)}>
-            <Card>
+            <Card style={{border:"2px solid grey"}}>  
               <CardHeader
               avatar={
                 <Avatar aria-label="recipe" className={classes.avatar} style={{backgroundColor:"green"}}>
                   <AndroidIcon/>
                 </Avatar>
               }
-              action={
+              /*action={
                 <IconButton aria-label="settings">
                   <ClearIcon />
                 </IconButton>
-              }
+              }*/
                 title={`Robotername: ${elem['robot_name']}`}
                 subheader={`Flottenname: ${elem['fleet_name']}`}
               />
 
               <CardContent>
-              <ChartDonut 
+              <ChartDonut
                 ariaDesc="Batteriestatus"
                 ariaTitle="Batteriestatus"
                 constrainToVisibleArea={true}
                 data={[{ x: '', y: elem['battery_percent']}, {x: '', y: 100-elem['battery_percent'] }]}
-                height={50}
+                height={90}
+                width={190}
                 labels={({ datum }) => `${elem['battery_percent']}`}
-                //themeColor={ }
+                themeColor={ ChartThemeColor.green}
                 title= {Math.round(elem['battery_percent'], 2) + "%"}
                 padding={{
                 bottom: 0,
                 left: 0,
                 right: 0, 
                 top: 0
-                }}
-                width={190}/>
+                }}/>
            
                Status: {elem['mode']} <br></br>
                Location X: {elem['location_x']} <br></br>
@@ -139,7 +117,7 @@ const useStyles = makeStyles((theme) => ({
           </Grid>
         ))}
       </Grid>
-    ))
+    
   </div>
   );
 }
