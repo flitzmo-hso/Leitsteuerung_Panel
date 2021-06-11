@@ -16,7 +16,6 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import FolderSpecialIcon from '@material-ui/icons/FolderSpecial';
 import HomeIcon from '@material-ui/icons/Home';
-import AdbIcon from '@material-ui/icons/Adb';
 import MapIcon from '@material-ui/icons/Map';
 import HelpIcon from '@material-ui/icons/Help';
 import { Link } from 'react-router-dom';
@@ -26,7 +25,6 @@ import Footer from './footer.js';
 // Import Pages
 import Dashboard from './components/Dashboard.js';
 import Orders from './components/Orders.js';
-import Robots from './components/Robots.js';
 import Map from './components/Map/Map.js';
 import Hilfebereich from './components/Hilfebereich.js';
 
@@ -139,21 +137,18 @@ function App() {
 
        setSelectedIndex(1);
      } 
-     else if(window.location.href.endsWith("Robots")){
+  
+    else if(window.location.href.endsWith("Map")){
 
       setSelectedIndex(2);
     } 
-    else if(window.location.href.endsWith("Map")){
+    else if(window.location.href.endsWith("Hilfebereich")){
 
       setSelectedIndex(3);
     } 
-    else if(window.location.href.endsWith("Hilfebereich")){
-
-      setSelectedIndex(4);
-    } 
     else if(window.location.href.endsWith("Einstellungen")){
 
-      setSelectedIndex(5);
+      setSelectedIndex(4);
     } 
      
     }, []);
@@ -246,15 +241,8 @@ function App() {
             </ListItemIcon>
             <ListItemText primary="Orders" />   
          </ListItem>
-         <ListItem button component={Link} to="/Robots" key="Robots" className={classes.activeTab} selected={selectedIndex === 2}
+         <ListItem button component={Link} to="/Map" key="Map" className={classes.activeTab} selected={selectedIndex === 2}
           onClick={event => handleListItemClick(event, 2)}>
-            <ListItemIcon>
-              <AdbIcon style={{fill: "#fff6e5"}}/>
-            </ListItemIcon>
-            <ListItemText primary="Robots" />   
-         </ListItem>
-         <ListItem button component={Link} to="/Map" key="Map" className={classes.activeTab} selected={selectedIndex === 3}
-          onClick={event => handleListItemClick(event, 3)}>
             <ListItemIcon>
               <MapIcon style={{fill: "#fff6e5"}}/>
             </ListItemIcon>
@@ -263,8 +251,8 @@ function App() {
         </List>
 
         <List>
-        <ListItem button component={Link} to="/Hilfebereich" key="Hilfebereich" className={classes.activeTab} selected={selectedIndex === 4}
-          onClick={event => handleListItemClick(event, 4)}>
+        <ListItem button component={Link} to="/Hilfebereich" key="Hilfebereich" className={classes.activeTab} selected={selectedIndex === 3}
+          onClick={event => handleListItemClick(event, 3)}>
             <ListItemIcon>
               <HelpIcon style={{fill: "#fff6e5"}} />
             </ListItemIcon>
@@ -283,9 +271,6 @@ function App() {
             </Route>
             <Route exact path="/Orders">
               <Orders />
-            </Route>
-            <Route exact path="/Robots">
-              <Robots />
             </Route>
             <Route exact path="/Map">
               <Map />
