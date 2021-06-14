@@ -3,7 +3,7 @@ import MUIDataTable from "mui-datatables";
 import Button from '@material-ui/core/Button';
 import axios from "axios";
 
-export default function ERPOrders() {
+export default function CanceledOrders() {
 
   const columns = [ 
    {name: "O_ID", label: "Order-Nr", options: {filter: true, sort: true, display: true}}, 
@@ -29,7 +29,7 @@ export default function ERPOrders() {
   
   //Load data
   function DatenLaden(){
-    axios.get('http://0.0.0.0:8080/getDBOrders')
+    axios.get('http://0.0.0.0:8080/getDBOrders?status=4') //TODO: AUFTRÄGE MIT STATUS ABGESCHLOSSEN
     .then(res => {
     console.log("RESPONSE:", res); //Data from Gateway
 

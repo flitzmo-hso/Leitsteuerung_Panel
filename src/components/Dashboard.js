@@ -8,6 +8,7 @@ import Paper from '@material-ui/core/Paper';
 
 import KpiAuslastung from './Dashboard/KPI_Auslastung.js';
 import Uhrzeit from './Dashboard/Uhrzeit.js';
+import ActiveOrders from './Dashboard/ActiveOrders.js'
 
 
 //Set Style
@@ -74,20 +75,7 @@ export default function Dashboard() {
 
             <Grid item xs={12} md={12}>
               <Paper className={classes.paper}>
-                Aktive Fahraufträge auf den ersten Blick 
-                <br></br>
-                <br></br>
-                <br></br>
-                <br></br>
-                <br></br>
-                <br></br>
-                <br></br>
-                <br></br>
-                <br></br>
-                <br></br>
-                <br></br>
-                <br></br>
-                <br></br>
+                <ActiveOrders/>
               </Paper>
             </Grid>
 

@@ -10,12 +10,14 @@ import ArchiveIcon from '@material-ui/icons/Archive';
 import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 import Box from '@material-ui/core/Box';
 import AdbIcon from '@material-ui/icons/Adb';
+import CancelIcon from '@material-ui/icons/Cancel';
 
 import ManualOrder from './ManualOrder';
-import ERPOrders from './ERPOrders';
+import OpenOrders from './OpenOrders';
 import Roboterstatus from './Roboterstatus'
 import Auftragsstatus from './Auftragsstatus'
 import DoneOrders from './DoneOrders';
+import CanceledOrders from './CanceledOrders'
 
 //Set style
 const useStyles = makeStyles((theme) => ({
@@ -86,33 +88,33 @@ export default function ScrollableTabsButtonForce() {
           indicatorColor="primary"
           textColor="primary"
           aria-label="scrollable force tabs example" >
-          <Tab label="Manueller Fahrauftrag" icon={<ColorLensIcon />} {...a11yProps(2)} />
-          <Tab label="ERP-Fahraufträge" icon={<ArchiveIcon />} {...a11yProps(3)} />
-          <Tab label="Roboterstatus" icon={<AdbIcon />} {...a11yProps(4)} />
+          <Tab label="Roboterstatus" icon={<AdbIcon />} {...a11yProps(2)} />
+          <Tab label="Manueller Fahrauftrag" icon={<ColorLensIcon />} {...a11yProps(3)} />
+          <Tab label="Offene Fahraufträge" icon={<ArchiveIcon />} {...a11yProps(4)} />
           <Tab label="Aktive Aufträge" icon={<AssignmentTurnedInIcon />} {...a11yProps(5)} />
           <Tab label="Abgeschlosse Aufträge" icon={<AssignmentTurnedInIcon />} {...a11yProps(6)} />
+          <Tab label="Abgebrochene Aufträge" icon={<CancelIcon />} {...a11yProps(7)} />
         </Tabs>
       </AppBar>
 
       <TabPanel value={value} index={0}>
+        <div className={classes.root}>
+            <Grid item xs={12}>   
+            <Roboterstatus/> 
+            </Grid>
+        </div> 
+      </TabPanel> 
+      <TabPanel value={value} index={1}>
         <div className={classes.root}>
           <Grid item xs={12}>
             <ManualOrder/>
           </Grid>
         </div>
       </TabPanel>
-
-      <TabPanel value={value} index={1}>
-        <div className={classes.root}>
-            <Grid item xs={12}>   
-            <ERPOrders/> 
-            </Grid>
-        </div> 
-      </TabPanel> 
       <TabPanel value={value} index={2}>
         <div className={classes.root}>
             <Grid item xs={12}>   
-            <Roboterstatus/> 
+            <OpenOrders/> 
             </Grid>
         </div> 
       </TabPanel> 
@@ -127,6 +129,13 @@ export default function ScrollableTabsButtonForce() {
         <div className={classes.root}>
             <Grid item xs={12}>   
             <DoneOrders/> 
+            </Grid>
+        </div> 
+      </TabPanel>    
+      <TabPanel value={value} index={5}>
+        <div className={classes.root}>
+            <Grid item xs={12}>   
+            <CanceledOrders/> 
             </Grid>
         </div> 
       </TabPanel> 
