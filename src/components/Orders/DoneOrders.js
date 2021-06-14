@@ -1,6 +1,5 @@
 import React, { useState, useEffect} from "react";
 import MUIDataTable from "mui-datatables";
-import Button from '@material-ui/core/Button';
 import axios from "axios";
 
 export default function DoneOrders() {
@@ -18,11 +17,9 @@ export default function DoneOrders() {
    {name: "OS_DESC", label: "Status",options: {filter: true,sort: true,display: true}} 
    ];
 
-  const options = {rowsPerPage: 5, customToolbarSelect: () => { }, filterType: 'checkbox', download: false, 
-   onRowSelectionChange : (curRowSelected, allRowsSelected) => {rowSelectEvent(curRowSelected, allRowsSelected); }};
+  const options = {rowsPerPage: 5, customToolbarSelect: () => { }, selectableRows: false, download: false };
   
   const [allData, setAllData] = useState([]); 
-  const [selectedData, setSelectedData] =  useState([]); 
 
   //Event if data changed
   useEffect(() => { DatenLaden(); });
@@ -57,49 +54,6 @@ export default function DoneOrders() {
       else return false;
     }
 
-  //Submit selected Table Orders
-  function SubmitOrders() {
-
-    console.log("Ausgewählte Datensätze:", selectedData);
-
-    if(selectedData === undefined || selectedData.length === 0) {
-      alert("Bitte Datensatz auswählen!"); return; 
-    }
-
-      axios.post('http://0.0.0.0:8080/submit_task', selectedData)
-      .then(res => {
-      console.log("RESPONSE:", res);
-      alert("Erfolgreich übermittelt."); 
-    
-      })
-      .catch(err => {
-          console.log(err.message); //Error-Handling
-          alert("Fehler.");  
-    
-      }) 
-    }
-
-
-
-//RowSelectEvent
-function rowSelectEvent(curRowSelected, allRowsSelected){ 
-
-  var _selectedData = [];
-
-  if(allRowsSelected.length === 0) {  //Wenn keine Rows ausgewählt sind
-    setSelectedData(undefined);
-    return;
-  }
-  
-  allRowsSelected.forEach(element => { //Get selected orders
-    _selectedData.push(allData[element.dataIndex])
-  });
-
-  setSelectedData(_selectedData);
-
-  return;
-}
-
   return (
   <div align="left">
     
@@ -108,15 +62,7 @@ function rowSelectEvent(curRowSelected, allRowsSelected){
         data={allData}      
         columns={columns}
         options={options}/>
-    <br/>
-    <br/>
-    <Button style={{backgroundColor: "gray"}}
-    variant="contained" 
-    onClick={SubmitOrders} 
-    title="Mit Klick auf diesen Button werden alle ausgewählten Transportaufträge übermittelt.">
-       Absenden
-    </Button>
-   
+
     </div>
   );
 }

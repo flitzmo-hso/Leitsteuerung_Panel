@@ -5,16 +5,15 @@ import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import ColorLensIcon from '@material-ui/icons/ColorLens';
+import PostAddIcon from '@material-ui/icons/PostAdd';
 import ArchiveIcon from '@material-ui/icons/Archive';
 import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 import Box from '@material-ui/core/Box';
-import AdbIcon from '@material-ui/icons/Adb';
 import CancelIcon from '@material-ui/icons/Cancel';
+import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 
 import ManualOrder from './ManualOrder';
 import OpenOrders from './OpenOrders';
-import Roboterstatus from './Roboterstatus'
 import Auftragsstatus from './Auftragsstatus'
 import DoneOrders from './DoneOrders';
 import CanceledOrders from './CanceledOrders'
@@ -88,51 +87,43 @@ export default function ScrollableTabsButtonForce() {
           indicatorColor="primary"
           textColor="primary"
           aria-label="scrollable force tabs example" >
-          <Tab label="Roboterstatus" icon={<AdbIcon />} {...a11yProps(2)} />
-          <Tab label="Manueller Fahrauftrag" icon={<ColorLensIcon />} {...a11yProps(3)} />
-          <Tab label="Offene Fahraufträge" icon={<ArchiveIcon />} {...a11yProps(4)} />
-          <Tab label="Aktive Aufträge" icon={<AssignmentTurnedInIcon />} {...a11yProps(5)} />
-          <Tab label="Abgeschlosse Aufträge" icon={<AssignmentTurnedInIcon />} {...a11yProps(6)} />
-          <Tab label="Abgebrochene Aufträge" icon={<CancelIcon />} {...a11yProps(7)} />
+          <Tab label="Manueller Fahrauftrag" icon={<PostAddIcon />} {...a11yProps(2)} />
+          <Tab label="Offene Fahraufträge" icon={<ArchiveIcon />} {...a11yProps(3)} />
+          <Tab label="Aktive Aufträge" icon={<PlayCircleOutlineIcon />} {...a11yProps(4)} />
+          <Tab label="Abgeschlosse Aufträge" icon={<AssignmentTurnedInIcon />} {...a11yProps(5)} />
+          <Tab label="Abgebrochene Aufträge" icon={<CancelIcon />} {...a11yProps(6)} />
         </Tabs>
       </AppBar>
 
       <TabPanel value={value} index={0}>
-        <div className={classes.root}>
-            <Grid item xs={12}>   
-            <Roboterstatus/> 
-            </Grid>
-        </div> 
-      </TabPanel> 
-      <TabPanel value={value} index={1}>
         <div className={classes.root}>
           <Grid item xs={12}>
             <ManualOrder/>
           </Grid>
         </div>
       </TabPanel>
-      <TabPanel value={value} index={2}>
+      <TabPanel value={value} index={1}>
         <div className={classes.root}>
             <Grid item xs={12}>   
             <OpenOrders/> 
             </Grid>
         </div> 
       </TabPanel> 
-      <TabPanel value={value} index={3}>
+      <TabPanel value={value} index={2}>
         <div className={classes.root}>
             <Grid item xs={12}>   
             <Auftragsstatus/> 
             </Grid>
         </div> 
       </TabPanel> 
-      <TabPanel value={value} index={4}>
+      <TabPanel value={value} index={3}>
         <div className={classes.root}>
             <Grid item xs={12}>   
             <DoneOrders/> 
             </Grid>
         </div> 
       </TabPanel>    
-      <TabPanel value={value} index={5}>
+      <TabPanel value={value} index={4}>
         <div className={classes.root}>
             <Grid item xs={12}>   
             <CanceledOrders/> 

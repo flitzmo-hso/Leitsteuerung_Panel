@@ -34,7 +34,14 @@ function getTaskStates(){
       return;
     }
    
-    setCardData(res.data);
+    var filteredData = [];
+
+    res.data.forEach(element => {
+      if (parseInt(element['progress'].slice(0, -1)) < 100) {filteredData.push(element);}
+    });
+
+    setCardData(filteredData);
+    //setCardData(res.data);
 
     })
     .catch(err => {
@@ -42,6 +49,31 @@ function getTaskStates(){
     })
 }
 
+
+function CancelTask(task_id){
+
+  //TODO: DB Status updaten
+
+
+
+  //Cancel_Task per REST-Method
+  if (task_id === undefined || task_id === '') return;
+
+  alert(task_id)
+  axios.post('http://0.0.0.0:8080/cancel_task', task_id)
+  .then(res => {
+  console.log("RESPONSE:", res);
+  alert("Erfolgreich abbgebrochen."); 
+
+  })
+  .catch(err => {
+      console.log(err.message); //Error-Handling
+      alert("Fehler.");  
+
+  }) 
+
+  return;
+}
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -71,7 +103,7 @@ const useStyles = makeStyles((theme) => ({
                 </Avatar>
               }
               action={
-                <IconButton aria-label="settings">
+                <IconButton aria-label="settings"  onClick={() => { CancelTask(elem['task_id'])}}>
                   <ClearIcon />
                 </IconButton>
               }

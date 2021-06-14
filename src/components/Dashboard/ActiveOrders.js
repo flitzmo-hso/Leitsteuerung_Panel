@@ -17,7 +17,7 @@ export default function ERPOrders() {
    {name: "OS_DESC", label: "Status",options: {filter: true,sort: true,display: true}} 
    ];
 
-  const options = {rowsPerPage: 3, customToolbarSelect: () => { }, filterType: 'checkbox', download: false};
+  const options = {rowsPerPage: 3, customToolbarSelect: () => { }, selectableRows: false, download: false};
   
   const [allData, setAllData] = useState([]); 
 
