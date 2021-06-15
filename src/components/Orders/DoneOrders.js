@@ -6,6 +6,7 @@ export default function DoneOrders() {
 
   const columns = [ 
    {name: "O_ID", label: "Order-Nr", options: {filter: true, sort: true, display: true}}, 
+   {name: "OT_DESC", label: "Order-Typ", options: {filter: true, sort: true, display: true}}, 
    {name: "O_TIMESTAMP", label: "Zeit", options: {filter: true, sort: true, display: true}},
    {name: "O_PRIO", label: "Priorität",  options: {filter: true,  sort: true, display: true}}, 
    {name: "O_WH_IDFROM", label: "O_WH_IDFROM", options: {filter: false, sort: false, display: false}},

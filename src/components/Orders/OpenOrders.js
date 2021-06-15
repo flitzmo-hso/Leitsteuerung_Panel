@@ -7,6 +7,7 @@ export default function ERPOrders() {
 
   const columns = [ 
    {name: "O_ID", label: "Order-Nr", options: {filter: true, sort: true, display: true}}, 
+   {name: "OT_DESC", label: "Order-Typ", options: {filter: true, sort: true, display: true}}, 
    {name: "O_TIMESTAMP", label: "Zeit", options: {filter: true, sort: true, display: true}},
    {name: "O_PRIO", label: "Priorität",  options: {filter: true,  sort: true, display: true}}, 
    {name: "O_WH_IDFROM", label: "O_WH_IDFROM", options: {filter: false, sort: false, display: false}},
@@ -66,7 +67,11 @@ export default function ERPOrders() {
       alert("Bitte Datensatz auswählen!"); return; 
     }
 
-      axios.post('http://0.0.0.0:8080/submit_task', selectedData)
+    selectedData.forEach(element => {
+
+      var singleSubmits = filterSelectedData(element);
+
+      axios.post('http://0.0.0.0:8080/submit_task', singleSubmits)
       .then(res => {
       console.log("RESPONSE:", res);
       alert("Erfolgreich übermittelt."); 
@@ -77,9 +82,40 @@ export default function ERPOrders() {
           alert("Fehler.");  
     
       }) 
+      
+    });
+      
     }
 
 
+    function filterSelectedData(element){
+
+      var obj = {};
+ 
+      //Delivery Order
+      if (element["task_type"] === "Delivery") {
+
+        if (element["start_time"] === '' || element["priority"]  === '' || element["option"] === '') return undefined;
+
+        obj['task_type'] = "Delivery"; obj['start_time'] = parseInt(element["start_time"]); 
+        obj['priority'] = parseInt(element["priority"]); obj["description"] = {"option": element["option"]};
+      
+      }
+
+      //Loop Order
+      if (element["task_type"] === "Loop") {
+
+        if(element["start_time"] === '' || element["priority"]  === '' || element["num_loops"]  === ''  || 
+        element["num_loops"]  === 0 ||  element["start_name"]  === '' ||  element["finish_name"]  ===  '')  return undefined; 
+
+        obj['task_type'] = "Loop"; obj['start_time'] = parseInt(element["start_time"]); 
+        obj['priority'] = parseInt(element["priority"]); 
+        obj['description'] = {"num_loops": parseInt(element["num_loops"]) , "start_name": element["start_name"], "finish_name": element["finish_name"]};
+      
+    }
+
+    return obj;
+    }
 
 //RowSelectEvent
 function rowSelectEvent(curRowSelected, allRowsSelected){ 
