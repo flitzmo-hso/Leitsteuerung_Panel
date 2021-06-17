@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from '@material-ui/core/Button';
 import axios from "axios";
 //import Paper from '@material-ui/core/Paper';
@@ -58,6 +58,7 @@ export default function ManualOrder() {
       obj['description'] = {"num_loops": parseInt(numberLoops) , "start_name": startLoc, "finish_name": endLoc};
    
     } */
+    
     return obj;
 
   } 
@@ -68,20 +69,35 @@ export default function ManualOrder() {
     if(obj === undefined || obj.length === 0) {alert("Bitte richtige Daten eingeben."); return;} 
     console.log("Auftrag:", obj)
 
-   
-    //axios.post('http://0.0.0.0:8080/submit_task',{"task_type":"Loop", "start_time":0, "description": {"start_name": "coe", "finish_name": "pantry", "num_loops":1}})
-    //axios.post('http://0.0.0.0:8080/submit_task',{"task_type": "Delivery", "start_time": 0, "priority": 0, "description": { "dropoff_ingestor": "coke_ingestor", "dropoff_place_name": "hardware_2","pickup_dispenser": "coke_dispenser", "pickup_place_name": "pantry" } })
 
    axios.post('http://0.0.0.0:8080/submit_task', obj)
     .then(res => {
       if(res.data === undefined || res.data.length === 0)  return;
     console.log("Returned Task ID:", res.data['task_id']);
 
+    var taskId = res.data['task_id']
+
     //Put orders to DB
-    PutOrderToDb(obj);  
+    PutOrderToDb(obj, taskId);  
+  
+    })
+    .catch(err => {
+        console.log(err.message); //Error-Handling
+        alert("Fehler beim Auftrag übermitteln.");  
+  
+    }) 
+
+    return;
+  }
+
+  function insertMapping(taskid, orderId, sessionId) {
+
+    console.log("TaskId:", taskid, "OrderId", orderId, "SessionId:", sessionId)
     
-    //GET Max SessionID + TASK_ID in MYSQL ORDER.OrderMappingRMF
-    
+    var obj = { "OM_SESSIONID": parseInt(sessionId), "OM_DELIVERYID": taskid, "OM_O_ID": parseInt(orderId), "OM_OT_ID":  2};
+
+    axios.post('http://0.0.0.0:8080/insertMapping', obj)
+    .then(res => {
 
     alert("Erfolgreich übermittelt."); 
   
@@ -92,14 +108,17 @@ export default function ManualOrder() {
   
     }) 
 
-    return;
   }
 
-  function PutOrderToDb(objVal){
+
+  function PutOrderToDb(objVal, taskId){
 
     axios.post('http://0.0.0.0:8080/postOrderManual', objVal)
     .then(res => {
-    console.log("DB RESPONSE:", res);
+    console.log("DB RESPONSE:", res.data[0]);
+
+      insertMapping(taskId, res.data[0][1], res.data[0][2]);
+   
   
     })
     .catch(err => {

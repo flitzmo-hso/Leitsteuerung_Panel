@@ -69,11 +69,16 @@ export default function ERPOrders() {
 
     selectedData.forEach(element => {
 
+      //TODO: Filterselectdata auf neues Objekt umbauen.
       var singleSubmits = filterSelectedData(element);
 
       axios.post('http://0.0.0.0:8080/submit_task', singleSubmits)
       .then(res => {
-      console.log("RESPONSE:", res);
+      console.log("Returned Task ID:", res.data['task_id']);
+
+      //Put orders to DB
+      PutOrderToDb(singleSubmits, res.data['task_id']);  
+
       alert("Erfolgreich übermittelt."); 
     
       })
@@ -87,23 +92,62 @@ export default function ERPOrders() {
       
     }
 
+    function PutOrderToDb(objVal, taskId){
+
+      axios.post('http://0.0.0.0:8080/postOrderAutomatic', objVal)
+      .then(res => {
+      console.log("DB RESPONSE:", res.data[0]);
+  
+        insertMapping(taskId, res.data[0][1], res.data[0][2]);
+     
+    
+      })
+      .catch(err => {
+          console.log(err.message); //Error-Handling
+          alert("Fehler.");  
+    
+      }) 
+  
+  return;
+    }
+
+    function insertMapping(taskid, orderId, sessionId) {
+
+      console.log("TaskId:", taskid, "OrderId", orderId, "SessionId:", sessionId)
+      
+      var obj = { "OM_SESSIONID": parseInt(sessionId), "OM_DELIVERYID": taskid, "OM_O_ID": parseInt(orderId), "OM_OT_ID":  1};
+  
+      axios.post('http://0.0.0.0:8080/insertMapping', obj)
+      .then(res => {
+  
+      alert("Erfolgreich übermittelt."); 
+    
+      })
+      .catch(err => {
+          console.log(err.message); //Error-Handling
+          alert("Fehler.");  
+    
+      }) 
+  
+    }
+
+   
+
 
     function filterSelectedData(element){
 
       var obj = {};
  
-      //Delivery Order
-      if (element["task_type"] === "Delivery") {
+      //Delivery Order 
 
         if (element["start_time"] === '' || element["priority"]  === '' || element["option"] === '') return undefined;
 
         obj['task_type'] = "Delivery"; obj['start_time'] = parseInt(element["start_time"]); 
         obj['priority'] = parseInt(element["priority"]); obj["description"] = {"option": element["option"]};
-      
-      }
+
 
       //Loop Order
-      if (element["task_type"] === "Loop") {
+      /*if (element["task_type"] === "Loop") {
 
         if(element["start_time"] === '' || element["priority"]  === '' || element["num_loops"]  === ''  || 
         element["num_loops"]  === 0 ||  element["start_name"]  === '' ||  element["finish_name"]  ===  '')  return undefined; 
@@ -112,7 +156,7 @@ export default function ERPOrders() {
         obj['priority'] = parseInt(element["priority"]); 
         obj['description'] = {"num_loops": parseInt(element["num_loops"]) , "start_name": element["start_name"], "finish_name": element["finish_name"]};
       
-    }
+    }*/
 
     return obj;
     }
