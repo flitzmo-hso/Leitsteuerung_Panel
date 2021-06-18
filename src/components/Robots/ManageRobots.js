@@ -20,11 +20,12 @@ import ViewColumn from '@material-ui/icons/ViewColumn';
 export default function ManageRobots() {
 
 //Event if data changed  
-useEffect(() => { ColorDatenLaden(); });
-  
-const [ColorData , /*setColorData*/] = useState([]); 
+useEffect(() => { LoadRobots(); });
 
-const [columnsColors, /* setColumnsColors */] = useState([
+const [allData, setAllData] = useState([]); 
+  
+
+const [columnsRobots, /* setColumnsColors */] = useState([
     { title: 'Mat-Bestellnr.', field: 'prodmat_id', editable: 'never' },
     { title: 'Charge', field: 'chargen_nr', editable: 'never' },
     { title: 'Menge', field: 'quantity', editable: 'never' },
@@ -54,10 +55,12 @@ const tableIcons = {
   ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />)
 };
 
-//Load data  
-function ColorDatenLaden(){
+const options = {rowsPerPage: 5, customToolbarSelect: () => { }, selectableRows: false, download: false };
 
-    /*axios.get('http://0.0.0.0:8080/getDBOrders?status=4') //TODO: AUFTRÄGE MIT STATUS ABGESCHLOSSEN
+//Load data  
+function LoadRobots(){
+
+    /*axios.get('http://0.0.0.0:8080/getDBOrders?status=4') 
     .then(res => {
     console.log("RESPONSE:", res); //Data from Gateway
 
@@ -87,20 +90,14 @@ if(data.sort().join(',') === sortedOrders.sort().join(',')){
 
 
 
-//Update Restmengen
-function UpdateField(oldValue, newValue, rowData){
-
-}
-
   return (
 <div style={{ padding: '0px'}}>
   <MaterialTable
-        title="Farben"
+        title="Roboter"
         icons={tableIcons}
-        columns={columnsColors}
-        data={ColorData}
-        cellEditable={{ onCellEditApproved: (newValue, oldValue, rowData, columnDef) => {
-            return new Promise((resolve, reject) =>  { UpdateField(oldValue, newValue, rowData); setTimeout(resolve, 1000); }); }}} />
+        columns={columnsRobots}
+        data={allData} 
+        options={options}/>
   <br></br>
 </div>
 

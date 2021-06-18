@@ -11,12 +11,15 @@ import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 import Box from '@material-ui/core/Box';
 import CancelIcon from '@material-ui/icons/Cancel';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
+import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty';
 
 import ManualOrder from './ManualOrder';
 import OpenOrders from './OpenOrders';
+import WaitingOrders from './WaitingOrders'
 import Auftragsstatus from './Auftragsstatus'
 import DoneOrders from './DoneOrders';
 import CanceledOrders from './CanceledOrders'
+
 
 //Set style
 const useStyles = makeStyles((theme) => ({
@@ -89,9 +92,10 @@ export default function ScrollableTabsButtonForce() {
           aria-label="scrollable force tabs example" >
           <Tab label="Manueller Fahrauftrag" icon={<PostAddIcon />} {...a11yProps(2)} />
           <Tab label="Offene Fahraufträge" icon={<ArchiveIcon />} {...a11yProps(3)} />
-          <Tab label="Aktive Aufträge" icon={<PlayCircleOutlineIcon />} {...a11yProps(4)} />
-          <Tab label="Abgeschlosse Aufträge" icon={<AssignmentTurnedInIcon />} {...a11yProps(5)} />
-          <Tab label="Abgebrochene Aufträge" icon={<CancelIcon />} {...a11yProps(6)} />
+          <Tab label="Ausstehende Fahraufträge" icon={<HourglassEmptyIcon/>} {...a11yProps(4)} />
+          <Tab label="Aktive Aufträge" icon={<PlayCircleOutlineIcon />} {...a11yProps(5)} />
+          <Tab label="Abgeschlosse Aufträge" icon={<AssignmentTurnedInIcon />} {...a11yProps(6)} />
+          <Tab label="Abgebrochene Aufträge" icon={<CancelIcon />} {...a11yProps(7)} />
         </Tabs>
       </AppBar>
 
@@ -112,18 +116,25 @@ export default function ScrollableTabsButtonForce() {
       <TabPanel value={value} index={2}>
         <div className={classes.root}>
             <Grid item xs={12}>   
-            <Auftragsstatus/> 
+            <WaitingOrders/> 
             </Grid>
         </div> 
       </TabPanel> 
       <TabPanel value={value} index={3}>
         <div className={classes.root}>
             <Grid item xs={12}>   
+            <Auftragsstatus/> 
+            </Grid>
+        </div> 
+      </TabPanel> 
+      <TabPanel value={value} index={4}>
+        <div className={classes.root}>
+            <Grid item xs={12}>   
             <DoneOrders/> 
             </Grid>
         </div> 
       </TabPanel>    
-      <TabPanel value={value} index={4}>
+      <TabPanel value={value} index={5}>
         <div className={classes.root}>
             <Grid item xs={12}>   
             <CanceledOrders/> 

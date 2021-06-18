@@ -37,7 +37,7 @@ function getTaskStates(){
     var filteredData = [];
 
     res.data.forEach(element => {
-      if (parseInt(element['progress'].slice(0, -1)) < 100) {filteredData.push(element);}
+      if (parseInt(element['progress'].slice(0, -1)) < 100 && element['state'] === "Active/Executing") {filteredData.push(element);}
     });
 
     setCardData(filteredData);
@@ -51,9 +51,6 @@ function getTaskStates(){
 
 
 function CancelTask(task_id){
-
-  //TODO: DB Status updaten
-
 
 
   //Cancel_Task per REST-Method

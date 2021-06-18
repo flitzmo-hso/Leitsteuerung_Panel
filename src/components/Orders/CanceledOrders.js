@@ -30,7 +30,7 @@ export default function CanceledOrders() {
   
   //Load data
   function DatenLaden(){
-    axios.get('http://0.0.0.0:8080/getDBOrders?status=4') //TODO: AUFTRÄGE MIT STATUS ABGESCHLOSSEN
+    axios.get('http://0.0.0.0:8080/getDBOrders?status=4') 
     .then(res => {
     console.log("RESPONSE:", res); //Data from Gateway
 

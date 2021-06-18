@@ -27,7 +27,7 @@ export default function DoneOrders() {
   
   //Load data
   function DatenLaden(){
-    axios.get('http://0.0.0.0:8080/getDBOrders?status=3') //TODO: AUFTRÄGE MIT STATUS ABGESCHLOSSEN
+    axios.get('http://0.0.0.0:8080/getDBOrders?status=3') 
     .then(res => {
     console.log("RESPONSE:", res); //Data from Gateway
 

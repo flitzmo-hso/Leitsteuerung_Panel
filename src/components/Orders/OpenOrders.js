@@ -14,6 +14,8 @@ export default function ERPOrders() {
    {name: "O_WH_IDTO", label: "O_WH_IDTO", options: {filter: false, sort: true, display: false}},  
    {name: "O_WH_COORDINATEFROM", label: "Koordinate Von", options: {filter: true, sort: true, display: true}}, 
    {name: "O_WH_COORDINATETO", label: "Koordinate Nach", options: {filter: true, sort: true, display: true}}, 
+   {name: "O_DP_DELIVERYPOINTFROM", label: "O_DP_DELIVERYPOINTFROM", options: {filter: true, sort: true, display: true}}, 
+   {name: "O_DP_DELIVERYPOINTTO", label: "O_DP_DELIVERYPOINTTO", options: {filter: true, sort: true, display: true}}, 
    {name: "O_FT_IDREQUIREMENT", label: "Benötiges Anbaugerät", options: {filter: true, sort: true, display: true}},
    {name: "O_OS_ID", label: "O_OS_ID",options: {filter: false, sort: false,display: false}},
    {name: "OS_DESC", label: "Status",options: {filter: true,sort: true,display: true}} 
@@ -69,14 +71,12 @@ export default function ERPOrders() {
 
     selectedData.forEach(element => {
 
-      //TODO: Filterselectdata auf neues Objekt umbauen.
       var singleSubmits = filterSelectedData(element);
 
       axios.post('http://0.0.0.0:8080/submit_task', singleSubmits)
       .then(res => {
       console.log("Returned Task ID:", res.data['task_id']);
 
-      //Put orders to DB
       PutOrderToDb(singleSubmits, res.data['task_id']);  
 
       alert("Erfolgreich übermittelt."); 
@@ -99,7 +99,6 @@ export default function ERPOrders() {
       console.log("DB RESPONSE:", res.data[0]);
   
         insertMapping(taskId, res.data[0][1], res.data[0][2]);
-     
     
       })
       .catch(err => {
@@ -129,21 +128,21 @@ export default function ERPOrders() {
     
       }) 
   
-    }
-
-   
+    } 
 
 
     function filterSelectedData(element){
-
-      var obj = {};
  
       //Delivery Order 
+      console.log(element);
 
-        if (element["start_time"] === '' || element["priority"]  === '' || element["option"] === '') return undefined;
+        if (element["O_DP_DELIVERYPOINTTO"] === '' || element["O_DP_DELIVERYPOINTFROM"]  === '' || element["O_WH_COORDINATETO"] === '' || element["O_WH_COORDINATEFROM"] === '')  return undefined;
 
-        obj['task_type'] = "Delivery"; obj['start_time'] = parseInt(element["start_time"]); 
-        obj['priority'] = parseInt(element["priority"]); obj["description"] = {"option": element["option"]};
+        var obj = {"task_type": "Delivery", "start_time": 0, "priority": 0,
+            "description": {"dropoff_ingestor": element["O_DP_DELIVERYPOINTTO"], "dropoff_place_name": element["O_WH_COORDINATETO"],
+            "pickup_dispenser": element["O_DP_DELIVERYPOINTFROM"], "pickup_place_name": element["O_WH_COORDINATEFROM"] }};
+
+        console.log("Filtered Obj:", obj);
 
 
       //Loop Order

@@ -164,22 +164,22 @@ return;
       </tr>*/}
 
       <tr >
-        <td colspan="1"> <input value="0" type="number" id="startzeit" /> Startzeit (Minuten von jetztab)</td>
+        <td colspan="1"> <input defaultValue="0" type="number" id="startzeit" /> Startzeit (Minuten von jetztab)</td>
       </tr>
       <tr >
-        <td colspan="1"> <input value="0" type="number" id="prio" /> Priorität </td>
+        <td colspan="1"> <input defaultValue="0" type="number" id="prio" /> Priorität </td>
       </tr>
       <tr >
-        <td colspan="1"> <input  value="pantry"  type="text" id="coordinatefrom" /> Koordinate von</td>
+        <td colspan="1"> <input  defaultValue="pantry"  type="text" id="coordinatefrom" /> Koordinate von</td>
       </tr>
       <tr >
-        <td colspan="1"> <input value="hardware_2" type="text" id="coordinateto" /> Koordinate zu</td>
+        <td colspan="1"> <input defaultValue="hardware_2" type="text" id="coordinateto" /> Koordinate zu</td>
       </tr>
       <tr >
-        <td colspan="1"> <input value="coke_dispenser" type="text" id="pickupdispenser" /> Abholpunkt</td>
+        <td colspan="1"> <input defaultValue="coke_dispenser" type="text" id="pickupdispenser" /> Abholpunkt</td>
       </tr>
       <tr >
-        <td colspan="1"> <input value="coke_ingestor" type="text" id="dropoffingestor" /> Abwurfpunkt</td>
+        <td colspan="1"> <input defaultValue="coke_ingestor" type="text" id="dropoffingestor" /> Abwurfpunkt</td>
       </tr>
       {/*
       <tr id = "Loop" >
