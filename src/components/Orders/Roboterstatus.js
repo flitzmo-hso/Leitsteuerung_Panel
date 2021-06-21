@@ -33,8 +33,6 @@ function getRobotsStates(){
     setAllData(res.data); //Set new table data
     setCardData(res.data);
 
-    //TODO -> UPDATE STATUS METHOD FOR ALL STATUS
-
     })
     .catch(err => {
         console.log(err.message); //Error-Handling

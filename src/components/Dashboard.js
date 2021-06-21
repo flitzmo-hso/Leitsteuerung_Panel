@@ -56,7 +56,7 @@ export default function Dashboard() {
 
             <Grid item xs={12} md={6} lg={9}>
               <Paper className={fixedHeightPaper}>
-            Flitzmo Map 
+           Liniendiagramm
               </Paper>
             </Grid>
 

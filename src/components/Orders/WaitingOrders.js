@@ -1,6 +1,6 @@
 import React, { useState, useEffect} from "react";
 import MUIDataTable from "mui-datatables";
-import Button from '@material-ui/core/Button';
+//import Button from '@material-ui/core/Button';
 import axios from "axios";
 
 export default function WaitingOrders() {
@@ -21,11 +21,11 @@ export default function WaitingOrders() {
    {name: "OS_DESC", label: "Status",options: {filter: true,sort: true,display: true}} 
    ];
 
-  const options = {rowsPerPage: 5, customToolbarSelect: () => { }, filterType: 'checkbox', download: false, 
+  const options = {selectableRows: false, rowsPerPage: 5, customToolbarSelect: () => { }, filterType: 'checkbox', download: false, 
    onRowSelectionChange : (curRowSelected, allRowsSelected) => {rowSelectEvent(curRowSelected, allRowsSelected); }};
   
   const [allData, setAllData] = useState([]); 
-  const [selectedData, setSelectedData] =  useState([]); 
+  const [/*selectedData*/, setSelectedData] =  useState([]); 
 
   //Event if data changed
   useEffect(() => { DatenLaden(); });
@@ -60,8 +60,29 @@ export default function WaitingOrders() {
       else return false;
     }
 
+    //Success and error messages
+/*function cssMessage(message, color)
+{ //Set
+  document.getElementsByClassName("footer")[0].style.textAlign = "center";
+  document.getElementsByClassName("footer")[0].innerHTML = message;
+  document.getElementsByClassName("footer")[0].style.backgroundColor = color;
+
+  //Reset
+  sleep(4000).then(() => { 
+  document.getElementsByClassName("footer")[0].style.textAlign = "right";
+  document.getElementsByClassName("footer")[0].innerHTML = "Powered by ©Flitzmo";
+  document.getElementsByClassName("footer")[0].style.backgroundColor = "#90caf9";
+  });
+} */
+
+//Sleep for asynchronous calls
+/*function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}*/
+
+
   //Submit selected Table Orders
-  function CancelOrders() {
+ /* function CancelOrders() {
 
     console.log("Ausgewählte Datensätze:", selectedData);
 
@@ -69,65 +90,26 @@ export default function WaitingOrders() {
       alert("Bitte Datensatz auswählen!"); return; 
     }
 
-    selectedData.forEach(element => {
+    for (let element of selectedData) {
+      
+      var taskID = 0;
+      //var taskID = element["task_id"]; TASK_ID HIER NOCH NICHT BEKANNT
 
-      var singleSubmits = filterSelectedData(element);
+      if( taskID === undefined || taskID.length === 0 ) continue; 
 
-      CancelTask(singleSubmits)
+      axios.post('http://0.0.0.0:8080/cancel_task', {"task_id": String(taskID)})
+      .then(res => {
+      console.log("DB RESPONSE:", res.data);
     
-      });
-    }
-
-    function CancelTask(singleSubmits){
-
-        //TODO: filterSelectedData anpassen. Richtiges Format
-
-        axios.post('http://0.0.0.0:8080/cancel_task', singleSubmits)
-        .then(res => {
-        console.log("DB RESPONSE:", res.data);
-      
-        })
-        .catch(err => {
-            console.log(err.message); //Error-Handling
-            alert("Fehler.");  
-      
-        }) 
-
-  
-  
-  return;
-    }
-
-
-    function filterSelectedData(element){
- 
-      //Delivery Order 
-      console.log(element);
-
-        if (element["O_DP_DELIVERYPOINTTO"] === '' || element["O_DP_DELIVERYPOINTFROM"]  === '' || element["O_WH_COORDINATETO"] === '' || element["O_WH_COORDINATEFROM"] === '')  return undefined;
-
-        //RICHTIGES OBJEKT ZUSAMMENBAUEN
-        var obj = {"task_type": "Delivery", "start_time": 0, "priority": 0,
-            "description": {"dropoff_ingestor": element["O_DP_DELIVERYPOINTTO"], "dropoff_place_name": element["O_WH_COORDINATETO"],
-            "pickup_dispenser": element["O_DP_DELIVERYPOINTFROM"], "pickup_place_name": element["O_WH_COORDINATEFROM"] }};
-
-        console.log("Filtered Obj:", obj);
-
-
-      //Loop Order
-      /*if (element["task_type"] === "Loop") {
-
-        if(element["start_time"] === '' || element["priority"]  === '' || element["num_loops"]  === ''  || 
-        element["num_loops"]  === 0 ||  element["start_name"]  === '' ||  element["finish_name"]  ===  '')  return undefined; 
-
-        obj['task_type'] = "Loop"; obj['start_time'] = parseInt(element["start_time"]); 
-        obj['priority'] = parseInt(element["priority"]); 
-        obj['description'] = {"num_loops": parseInt(element["num_loops"]) , "start_name": element["start_name"], "finish_name": element["finish_name"]};
-      
-    }*/
-
-    return obj;
-    }
+      })
+      .catch(err => {
+          console.log(err.message); //Error-Handling
+          cssMessage("Fehler beim Abbrechen.", "#9c2c2c"); 
+    
+      }) 
+    
+      }
+    } */
 
 //RowSelectEvent
 function rowSelectEvent(curRowSelected, allRowsSelected){ 
@@ -158,12 +140,12 @@ function rowSelectEvent(curRowSelected, allRowsSelected){
         options={options}/>
     <br/>
     <br/>
-    <Button style={{backgroundColor: "gray"}}
+    {/*<Button style={{backgroundColor: "gray"}}
     variant="contained" 
-    onClick={CancelOrders} 
-    title="Mit Klick auf diesen Button werden alle ausgewählten Transportaufträge übermittelt.">
+    //onClick={CancelOrders} 
+    title="Mit Klick auf diesen Button werden alle ausgewählten Transportaufträge abgebrochen.">
        Abbrechen
-    </Button>
+  </Button> */}
    
     </div>
   );

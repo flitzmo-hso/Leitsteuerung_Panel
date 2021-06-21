@@ -49,23 +49,42 @@ function getTaskStates(){
     })
 }
 
+//Sleep for asynchronous calls
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+
+//Success and error messages
+function cssMessage(message, color)
+{ //Set
+  document.getElementsByClassName("footer")[0].style.textAlign = "center";
+  document.getElementsByClassName("footer")[0].innerHTML = message;
+  document.getElementsByClassName("footer")[0].style.backgroundColor = color;
+
+  //Reset
+  sleep(4000).then(() => { 
+  document.getElementsByClassName("footer")[0].style.textAlign = "right";
+  document.getElementsByClassName("footer")[0].innerHTML = "Powered by ©Flitzmo";
+  document.getElementsByClassName("footer")[0].style.backgroundColor = "#90caf9";
+  });
+}
 
 function CancelTask(task_id){
-
 
   //Cancel_Task per REST-Method
   if (task_id === undefined || task_id === '') return;
 
-  alert(task_id)
-  axios.post('http://0.0.0.0:8080/cancel_task', task_id)
+  axios.post('http://0.0.0.0:8080/cancel_task', {"task_id": String(task_id)})
   .then(res => {
   console.log("RESPONSE:", res);
-  alert("Erfolgreich abbgebrochen."); 
+
+  cssMessage("Erfolgreich abbgebrochen.", "#4dff88"); 
 
   })
   .catch(err => {
       console.log(err.message); //Error-Handling
-      alert("Fehler.");  
+      cssMessage("Fehler beim Abbrechen.", "#9c2c2c"); 
 
   }) 
 

@@ -128,8 +128,6 @@ const useStyles = makeStyles((theme) => ({
 
 
 function App() {
-
-  console.log("tetsdfsdfsdf")
   
   useEffect(() => {
     console.log("Sicherheitsprüfungs-Loop - Wenn Endlosschleife, dann in App.js prüfen.");

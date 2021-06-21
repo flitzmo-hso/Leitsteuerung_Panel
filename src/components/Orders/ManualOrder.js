@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React /*, { useState }*/ from "react";
 import Button from '@material-ui/core/Button';
 import axios from "axios";
 //import Paper from '@material-ui/core/Paper';
@@ -63,6 +63,27 @@ export default function ManualOrder() {
 
   } 
 
+  //Sleep for asynchronous calls
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+
+  //Success and error messages
+function cssMessage(message, color)
+{ //Set
+  document.getElementsByClassName("footer")[0].style.textAlign = "center";
+  document.getElementsByClassName("footer")[0].innerHTML = message;
+  document.getElementsByClassName("footer")[0].style.backgroundColor = color;
+
+  //Reset
+  sleep(4000).then(() => { 
+  document.getElementsByClassName("footer")[0].style.textAlign = "right";
+  document.getElementsByClassName("footer")[0].innerHTML = "Powered by ©Flitzmo";
+  document.getElementsByClassName("footer")[0].style.backgroundColor = "#90caf9";
+  });
+}
+
   function sendToAgv(){
     
     var obj = getFormValues();
@@ -83,7 +104,7 @@ export default function ManualOrder() {
     })
     .catch(err => {
         console.log(err.message); //Error-Handling
-        alert("Fehler beim Auftrag übermitteln.");  
+        cssMessage("Fehler beim Übermitteln.", "#9c2c2c"); 
   
     }) 
 
@@ -99,12 +120,12 @@ export default function ManualOrder() {
     axios.post('http://0.0.0.0:8080/insertMapping', obj)
     .then(res => {
 
-    alert("Erfolgreich übermittelt."); 
+      cssMessage("Erfolgreich übermittelt.", "#4dff88");
   
     })
     .catch(err => {
         console.log(err.message); //Error-Handling
-        alert("Fehler.");  
+        cssMessage("Fehler beim Übermitteln.", "#9c2c2c"); 
   
     }) 
 
@@ -123,7 +144,7 @@ export default function ManualOrder() {
     })
     .catch(err => {
         console.log(err.message); //Error-Handling
-        alert("Fehler.");  
+        cssMessage("Fehler beim Übermitteln.", "#9c2c2c"); 
   
     }) 
 

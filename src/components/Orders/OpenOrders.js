@@ -11,8 +11,7 @@ export default function ERPOrders() {
    {name: "O_TIMESTAMP", label: "Zeit", options: {filter: true, sort: true, display: true}},
    {name: "O_PRIO", label: "Priorität",  options: {filter: true,  sort: true, display: true}}, 
    {name: "O_WH_IDFROM", label: "O_WH_IDFROM", options: {filter: false, sort: false, display: false}},
-   {name: "O_WH_IDTO", label: "O_WH_IDTO", options: {filter: false, sort: true, display: false}},  
-   {name: "O_WH_COORDINATEFROM", label: "Koordinate Von", options: {filter: true, sort: true, display: true}}, 
+   {name: "O_WH_IDTO", label: "O_WH_IDTO", options: {options: {filter: true, sort: true, display: true}}}, 
    {name: "O_WH_COORDINATETO", label: "Koordinate Nach", options: {filter: true, sort: true, display: true}}, 
    {name: "O_DP_DELIVERYPOINTFROM", label: "O_DP_DELIVERYPOINTFROM", options: {filter: true, sort: true, display: true}}, 
    {name: "O_DP_DELIVERYPOINTTO", label: "O_DP_DELIVERYPOINTTO", options: {filter: true, sort: true, display: true}}, 
@@ -79,17 +78,38 @@ export default function ERPOrders() {
 
       PutOrderToDb(singleSubmits, res.data['task_id']);  
 
-      alert("Erfolgreich übermittelt."); 
+      cssMessage("Erfolgreich übermittelt.", "#4dff88"); 
     
       })
       .catch(err => {
           console.log(err.message); //Error-Handling
-          alert("Fehler.");  
+          cssMessage("Fehler beim Übermitteln.", "#9c2c2c"); 
     
       }) 
       
     });
       
+    }
+
+    //Sleep for asynchronous calls
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+
+        //Success and error messages
+    function cssMessage(message, color)
+    { //Set
+      document.getElementsByClassName("footer")[0].style.textAlign = "center";
+      document.getElementsByClassName("footer")[0].innerHTML = message;
+      document.getElementsByClassName("footer")[0].style.backgroundColor = color;
+
+      //Reset
+      sleep(4000).then(() => { 
+      document.getElementsByClassName("footer")[0].style.textAlign = "right";
+      document.getElementsByClassName("footer")[0].innerHTML = "Powered by ©Flitzmo";
+      document.getElementsByClassName("footer")[0].style.backgroundColor = "#90caf9";
+      });
     }
 
     function PutOrderToDb(objVal, taskId){
@@ -103,7 +123,7 @@ export default function ERPOrders() {
       })
       .catch(err => {
           console.log(err.message); //Error-Handling
-          alert("Fehler.");  
+          cssMessage("Fehler beim Übermitteln.", "#9c2c2c"); 
     
       }) 
   
@@ -119,12 +139,12 @@ export default function ERPOrders() {
       axios.post('http://0.0.0.0:8080/insertMapping', obj)
       .then(res => {
   
-      alert("Erfolgreich übermittelt."); 
+        cssMessage("Erfolgreich übermittelt.", "#4dff88");
     
       })
       .catch(err => {
           console.log(err.message); //Error-Handling
-          alert("Fehler.");  
+          cssMessage("Fehler beim Übermitteln.", "#9c2c2c"); 
     
       }) 
   

@@ -12,6 +12,7 @@ import Box from '@material-ui/core/Box';
 import CancelIcon from '@material-ui/icons/Cancel';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty';
+import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 
 import ManualOrder from './ManualOrder';
 import OpenOrders from './OpenOrders';
@@ -19,7 +20,7 @@ import WaitingOrders from './WaitingOrders'
 import Auftragsstatus from './Auftragsstatus'
 import DoneOrders from './DoneOrders';
 import CanceledOrders from './CanceledOrders'
-
+import ErrorOrders from './ErrorOrders'
 
 //Set style
 const useStyles = makeStyles((theme) => ({
@@ -91,11 +92,12 @@ export default function ScrollableTabsButtonForce() {
           textColor="primary"
           aria-label="scrollable force tabs example" >
           <Tab label="Manueller Fahrauftrag" icon={<PostAddIcon />} {...a11yProps(2)} />
-          <Tab label="Offene Fahraufträge" icon={<ArchiveIcon />} {...a11yProps(3)} />
+          <Tab label="Automatische Fahraufträge" icon={<ArchiveIcon />} {...a11yProps(3)} />
           <Tab label="Ausstehende Fahraufträge" icon={<HourglassEmptyIcon/>} {...a11yProps(4)} />
           <Tab label="Aktive Aufträge" icon={<PlayCircleOutlineIcon />} {...a11yProps(5)} />
           <Tab label="Abgeschlosse Aufträge" icon={<AssignmentTurnedInIcon />} {...a11yProps(6)} />
           <Tab label="Abgebrochene Aufträge" icon={<CancelIcon />} {...a11yProps(7)} />
+          <Tab label="Fehlerhafte Aufträge" icon={<ErrorOutlineIcon/>} {...a11yProps(8)} />
         </Tabs>
       </AppBar>
 
@@ -138,6 +140,13 @@ export default function ScrollableTabsButtonForce() {
         <div className={classes.root}>
             <Grid item xs={12}>   
             <CanceledOrders/> 
+            </Grid>
+        </div> 
+      </TabPanel> 
+      <TabPanel value={value} index={6}>
+        <div className={classes.root}>
+            <Grid item xs={12}>   
+            <ErrorOrders/> 
             </Grid>
         </div> 
       </TabPanel> 

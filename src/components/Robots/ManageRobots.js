@@ -1,5 +1,5 @@
 import React, { useState, useEffect, forwardRef } from "react";
-//import axios from "axios";
+import axios from "axios";
 import MaterialTable from 'material-table';
 import AddBox from '@material-ui/icons/AddBox';
 import ArrowDownward from '@material-ui/icons/ArrowDownward';
@@ -26,13 +26,13 @@ const [allData, setAllData] = useState([]);
   
 
 const [columnsRobots, /* setColumnsColors */] = useState([
-    { title: 'Mat-Bestellnr.', field: 'prodmat_id', editable: 'never' },
-    { title: 'Charge', field: 'chargen_nr', editable: 'never' },
-    { title: 'Menge', field: 'quantity', editable: 'never' },
-    { title: 'Restmenge', field: 'RES_QTY', editable: 'onUpdate', cellStyle: {border: "5px, #000000", fontWeight: "bold", fontStyle: "italic", backgroundColor: "#e3e3e3"} },
-    { title: 'PPML', field: 'ppml', editable: 'never' },
-    { title: 'Viskosität', field: 'viscosity', editable: 'never' },
-    { title: 'Delta_e', field: 'delta_e', editable: 'never' },
+    { title: 'ID', field: 'A_ID', editable: 'never' },
+    { title: 'Bezeichnung', field: 'A_DESC', editable: 'never' },
+    { title: 'Typ', field: 'AT_DESC', editable: 'never' },
+    { title: 'Batterietyp', field: 'BT_DESC', editable: 'never' },
+
+    //USE ON UPDATE TO ALLOW USER INPUT DATA
+    //{ title: 'Batterietyp', field: 'BT_DESC', editable: 'onUpdate', cellStyle: {border: "5px, #000000", fontWeight: "bold", fontStyle: "italic", backgroundColor: "#e3e3e3"} },
   ]);
 
 const tableIcons = {
@@ -60,33 +60,33 @@ const options = {rowsPerPage: 5, customToolbarSelect: () => { }, selectableRows:
 //Load data  
 function LoadRobots(){
 
-    /*axios.get('http://0.0.0.0:8080/getDBOrders?status=4') 
+    axios.get('http://0.0.0.0:8080/getAgvSettings') 
     .then(res => {
     console.log("RESPONSE:", res); //Data from Gateway
 
     if(res.data.length === 0) { //Check if data is available
-      //setAllData(undefined);
+      setAllData(undefined);
       return;
     }
 
-   // if (DataAreEqual(allData, res.data)) return; //Check if data has changed    
+    if (DataAreEqual(allData, res.data)) return; //Check if data has changed    
     console.log("Data:", res.data);    
-    //setAllData(res.data); //Set new table data
+    setAllData(res.data); //Set new table data
 
     })
     .catch(err => {
         console.log(err.message); //Error-Handling
-    }) */
+    }) 
 }
 
 
-//Check if old data = new data
-/*function DataAreEqual(data, sortedOrders){
-if(data.sort().join(',') === sortedOrders.sort().join(',')){
-  return true;
-  }
-  else return false;
-} */
+  //Check if old data = new data
+  function DataAreEqual(data, sortedOrders){
+  if(data.sort().join(',') === sortedOrders.sort().join(',')){
+    return true;
+    }
+    else return false;
+  } 
 
 
 
