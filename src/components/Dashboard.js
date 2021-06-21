@@ -9,6 +9,8 @@ import Paper from '@material-ui/core/Paper';
 import KpiAuslastung from './Dashboard/KPI_Auslastung.js';
 import Uhrzeit from './Dashboard/Uhrzeit.js';
 import ActiveOrders from './Dashboard/ActiveOrders.js'
+import Chart from './Dashboard/Chart.js'
+import ProgressTime from './Dashboard/ProgressTime.js'
 
 
 //Set Style
@@ -35,9 +37,10 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     overflow: 'auto',
     flexDirection: 'column',
+    height: "auto",
   },
   fixedHeight: {
-    height: 240,
+    height: "100%",
   },
 }));
 
@@ -54,9 +57,9 @@ export default function Dashboard() {
 
           <Grid container spacing={2}>
 
-            <Grid item xs={12} md={6} lg={9}>
-              <Paper className={fixedHeightPaper}>
-           Liniendiagramm
+            <Grid item xs={12} md={6} lg={9} >
+              <Paper className={classes.paper}>
+              <ActiveOrders/>
               </Paper>
             </Grid>
 
@@ -69,18 +72,21 @@ export default function Dashboard() {
               <div style={{paddingLeft: "6%"}}>  <Uhrzeit/> </div>
               </Paper>
               <Paper className={classes.paper} style={{  padding: 0, margin: 1, flexDirection: "revert" }}>
-               <h2>&nbsp; Kennzahl 3</h2>
+              <div style={{paddingLeft: "6%"}}>  <ProgressTime/> </div>
               </Paper>
             </Grid>  
-
-            <Grid item xs={12} md={12}>
-              <Paper className={classes.paper}>
-                <ActiveOrders/>
-              </Paper>
             </Grid>
 
-          </Grid>
+<Grid container spacing={2}>
+            <Grid item xs={12} md={12}>
+              <Paper className={classes.paper}>
+              <Chart/>
+               
+              </Paper>
+              </Grid>
+            </Grid>
 
+          
         </Container>
       </main>
     </div>
