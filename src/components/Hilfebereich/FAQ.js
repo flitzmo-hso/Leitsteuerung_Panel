@@ -24,10 +24,10 @@ export default function FaqBereich() {
     
   const styles = {
       bgColor: '282828',
-      titleTextColor: "white",
-      rowTitleColor: "white",
-      rowContentColor: 'white',
-      arrowColor: "white",
+      titleTextColor: "#e68a00",
+      rowTitleColor: "black",
+      rowContentColor: 'black',
+      arrowColor: "black",
   };
 
   const config = {

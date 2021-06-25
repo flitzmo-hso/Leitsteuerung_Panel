@@ -9,12 +9,12 @@ export default function DoneOrders() {
    {name: "OT_DESC", label: "Order-Typ", options: {filter: true, sort: true, display: true}}, 
    {name: "O_TIMESTAMP", label: "Zeit", options: {filter: true, sort: true, display: true}},
    {name: "O_PRIO", label: "Priorität",  options: {filter: true,  sort: true, display: true}}, 
-   {name: "O_WH_IDFROM", label: "O_WH_IDFROM", options: {filter: false, sort: false, display: false}},
-   {name: "O_WH_IDTO", label: "O_WH_IDTO", options: {filter: false, sort: true, display: false}},  
-   {name: "O_WH_COORDINATEFROM", label: "Koordinate Von", options: {filter: true, sort: true, display: true}}, 
-   {name: "O_WH_COORDINATETO", label: "Koordinate Nach", options: {filter: true, sort: true, display: true}}, 
+   {name: "O_WH_IDFROM", label: "von Lagerplatz", options: {filter: false, sort: false, display: false}},
+   {name: "O_WH_COORDINATEFROM", label: "von Koordinate", options: {filter: true, sort: true, display: true}}, 
+   {name: "O_WH_IDTO", label: "nach Lagerplatz", options: {filter: false, sort: true, display: false}},  
+   {name: "O_WH_COORDINATETO", label: "nach Koordinate", options: {filter: true, sort: true, display: true}}, 
    {name: "O_FT_IDREQUIREMENT", label: "Benötiges Anbaugerät", options: {filter: true, sort: true, display: true}},
-   {name: "O_OS_ID", label: "O_OS_ID",options: {filter: false, sort: false,display: false}},
+   {name: "O_OS_ID", label: "Status ID",options: {filter: false, sort: false,display: false}},
    {name: "OS_DESC", label: "Status",options: {filter: true,sort: true,display: true}} 
    ];
 

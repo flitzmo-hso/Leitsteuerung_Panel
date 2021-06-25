@@ -1,6 +1,7 @@
 import React /*, { useState }*/ from "react";
 import Button from '@material-ui/core/Button';
 import axios from "axios";
+import { Paper } from '@material-ui/core';
 //import Paper from '@material-ui/core/Paper';
 
 export default function ManualOrder() {
@@ -80,7 +81,7 @@ function cssMessage(message, color)
   sleep(4000).then(() => { 
   document.getElementsByClassName("footer")[0].style.textAlign = "right";
   document.getElementsByClassName("footer")[0].innerHTML = "Powered by ©Flitzmo";
-  document.getElementsByClassName("footer")[0].style.backgroundColor = "#90caf9";
+  document.getElementsByClassName("footer")[0].style.backgroundColor = "#004466";
   });
 }
 
@@ -171,7 +172,8 @@ return;
 
   return (
     <div align="left" justify="left" alignItems="left">
- <p>Manueller Fahrauftrag</p>
+      <Paper style={{padding:"20px", width:"500px"}}>
+ <p style={{color: "#e68a00", fontSize:"20px", fontWeight:"bold"}}>Manueller Fahrauftrag</p>
  <table > 
       {/*<tr>
         <td colspan="1" >
@@ -185,22 +187,22 @@ return;
       </tr>*/}
 
       <tr >
-        <td colspan="1"> <input defaultValue="0" type="number" id="startzeit" /> Startzeit (Minuten von jetztab)</td>
+        <td colspan="1"> <input defaultValue="0" type="number" id="startzeit" style={{height:"30px"}}/> Startzeit (Minuten ab jetzt)</td>
       </tr>
       <tr >
-        <td colspan="1"> <input defaultValue="0" type="number" id="prio" /> Priorität </td>
+        <td colspan="1"> <input defaultValue="0" type="number" id="prio" style={{height:"30px"}}/> Priorität </td>
       </tr>
       <tr >
-        <td colspan="1"> <input  defaultValue="pantry"  type="text" id="coordinatefrom" /> Koordinate von</td>
+        <td colspan="1"> <input  defaultValue="pantry"  type="text" id="coordinatefrom" style={{height:"30px"}}/> von Koordinate</td>
       </tr>
       <tr >
-        <td colspan="1"> <input defaultValue="hardware_2" type="text" id="coordinateto" /> Koordinate zu</td>
+        <td colspan="1"> <input defaultValue="hardware_2" type="text" id="coordinateto" style={{height:"30px"}}/> nach Koordinate</td>
       </tr>
       <tr >
-        <td colspan="1"> <input defaultValue="coke_dispenser" type="text" id="pickupdispenser" /> Abholpunkt</td>
+        <td colspan="1"> <input defaultValue="coke_dispenser" type="text" id="pickupdispenser" style={{height:"30px"}}/> Abholpunkt</td>
       </tr>
       <tr >
-        <td colspan="1"> <input defaultValue="coke_ingestor" type="text" id="dropoffingestor" /> Abwurfpunkt</td>
+        <td colspan="1"> <input defaultValue="coke_ingestor" type="text" id="dropoffingestor" style={{height:"30px"}}/> Abladepunkt</td>
       </tr>
       {/*
       <tr id = "Loop" >
@@ -212,17 +214,19 @@ return;
       <tr id = "Loop" >
         <td colspan="1" style={{display: LoopVisibility}}> <input type="number" id="numberLoops" />Nummer an Loops</td>
       </tr> */}
-      <tr >
+      <tr alignItems="center">
         <br></br>
       <Button 
+      
     //variant="contained" 
-    style={{backgroundColor: "gray"}}
+    style={{backgroundColor: "#e68a00", color:"white"}}
     onClick={sendToAgv} 
     title="Mit Klick auf diesen Button werden manuelle Fahraufträge weitergegeben." >
     Absenden
   </Button>
       </tr>
   </table>
+  </Paper>
     </div>
     
   );

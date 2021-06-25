@@ -85,14 +85,15 @@ function getAuslastung()
   }
 
   return (
-    <div style={{ height: '78px', width: '90px', padding: 0, margin: 0}}>  
-     
+    <div style={{ height: '190px', width: '90px', padding: 0, margin: 0}}>  
+
       <ChartDonut
         ariaDesc="Auslastung"
         ariaTitle="Auslastung"
         constrainToVisibleArea={true}
         data={auslastungData}
-        height={90}
+        
+        height={150}
         labels={({ datum }) => `${datum.x} ${datum.y}%`}
         themeColor={kpiColor}
         title= {Math.round(auslastungNumber, 2) + "%"}
@@ -102,8 +103,8 @@ function getAuslastung()
           right: 0, 
           top: 0
         }}
-        width={140}/>
-
+        width={140}
+        fontSize= {40}/>
     </div>
   );
 }

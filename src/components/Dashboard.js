@@ -38,6 +38,7 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'auto',
     flexDirection: 'column',
     height: "auto",
+    padding: "50px",
   },
   fixedHeight: {
     height: "100%",
@@ -58,20 +59,23 @@ export default function Dashboard() {
           <Grid container spacing={2}>
 
             <Grid item xs={12} md={6} lg={9} >
-              <Paper className={classes.paper}>
+              <Paper className={classes.paper} elevation={0}>
+                
               <ActiveOrders/>
               </Paper>
             </Grid>
 
             <Grid item xs={12} md={6} lg={3}>
-              <Paper className={classes.paper} style={{  padding: 0, marginBottom: 3, flexDirection: "revert"}}>
-                  <KpiAuslastung/>  <h2>&nbsp; Auslastung</h2>
+            
+              <Paper className={classes.paper} style={{  padding: 0, marginBottom: 3, flexDirection: "revert"}} elevation={0}> 
+                <p style={{color: "#e68a00", fontSize:"20px", fontWeight:"bold", padding:"0", alignItems:"center"}}>Auslastung</p>
+                  <KpiAuslastung/>  
             
               </Paper>
-              <Paper className={classes.paper} style={{  padding: 0, marginBottom: 3, flexDirection: "revert" }}>
+              <Paper className={classes.paper} style={{  padding: 0, marginBottom: 3, flexDirection: "revert" }} elevation={0}>
               <div style={{paddingLeft: "6%"}}>  <Uhrzeit/> </div>
               </Paper>
-              <Paper className={classes.paper} style={{  padding: 0, margin: 1, flexDirection: "revert" }}>
+              <Paper className={classes.paper} style={{  padding: 0, margin: 1, flexDirection: "revert" }} elevation={0}>
               <div style={{paddingLeft: "6%"}}>  <ProgressTime/> </div>
               </Paper>
             </Grid>  
@@ -79,7 +83,7 @@ export default function Dashboard() {
 
 <Grid container spacing={2}>
             <Grid item xs={12} md={12}>
-              <Paper className={classes.paper}>
+              <Paper className={classes.paper} elevation={0}>
               <Chart/>
                
               </Paper>

@@ -66,7 +66,7 @@ function cssMessage(message, color)
   sleep(4000).then(() => { 
   document.getElementsByClassName("footer")[0].style.textAlign = "right";
   document.getElementsByClassName("footer")[0].innerHTML = "Powered by ©Flitzmo";
-  document.getElementsByClassName("footer")[0].style.backgroundColor = "#90caf9";
+  document.getElementsByClassName("footer")[0].style.backgroundColor = "#004466";
   });
 }
 

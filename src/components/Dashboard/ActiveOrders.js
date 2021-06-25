@@ -59,7 +59,7 @@ export default function ERPOrders() {
   <div align="left">
     
     <MUIDataTable 
-        title={"Aktive Transportaufträge"}
+        title={<p style={{color: "#e68a00", fontSize:"20px", fontWeight:"bold", padding:"0", alignItems:"center"}}>Aktive Transportaufträge</p>}
         data={allData}      
         columns={columns}
         options={options}/>

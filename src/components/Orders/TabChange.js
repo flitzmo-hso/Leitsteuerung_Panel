@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     width: '100%',
     backgroundColor: theme.palette.background.paper,
-    textColor: "green",
+    textColor: "blue",
     textAlign: 'center',
     color: theme.palette.text.secondary,
 
@@ -83,21 +83,21 @@ export default function ScrollableTabsButtonForce() {
     <div className={classes.root}>
       <AppBar position="static" color="default">
         <Tabs
-          TabIndicatorProps={{style: {backgroundColor: "#006064"}}}
+          TabIndicatorProps={{style: {backgroundColor: "#ff9900"}}}
           value={value}
           onChange={handleChange}
           variant="scrollable"
           scrollButtons="on"
-          indicatorColor="primary"
-          textColor="primary"
+          indicatorColor="#ff9900"
+          textColor="#ff9900"
           aria-label="scrollable force tabs example" >
-          <Tab label="Manueller Fahrauftrag" icon={<PostAddIcon />} {...a11yProps(2)} />
-          <Tab label="Automatische Fahraufträge" icon={<ArchiveIcon />} {...a11yProps(3)} />
-          <Tab label="Ausstehende Fahraufträge" icon={<HourglassEmptyIcon/>} {...a11yProps(4)} />
-          <Tab label="Aktive Aufträge" icon={<PlayCircleOutlineIcon />} {...a11yProps(5)} />
-          <Tab label="Abgeschlosse Aufträge" icon={<AssignmentTurnedInIcon />} {...a11yProps(6)} />
-          <Tab label="Abgebrochene Aufträge" icon={<CancelIcon />} {...a11yProps(7)} />
-          <Tab label="Fehlerhafte Aufträge" icon={<ErrorOutlineIcon/>} {...a11yProps(8)} />
+          <Tab label="Manueller Fahrauftrag" icon={<PostAddIcon style={{fill:"#e68a00"}}/> } {...a11yProps(2)} style={{color:"black"}}/>
+          <Tab label="Automatische Fahraufträge" icon={<ArchiveIcon style={{fill:"#e68a00"}}/>} {...a11yProps(3)} style={{color:"black"}}/>
+          <Tab label="Ausstehende Fahraufträge" icon={<HourglassEmptyIcon  style={{fill:"#e68a00"}}/>} {...a11yProps(4)} style={{color:"black"}}/>
+          <Tab label="Aktive Aufträge" icon={<PlayCircleOutlineIcon style={{fill:"#e68a00"}}/>} {...a11yProps(5)} style={{color:"black"}}/>
+          <Tab label="Abgeschlosse Aufträge" icon={<AssignmentTurnedInIcon style={{fill:"#e68a00"}}/>} {...a11yProps(6)} style={{color:"black"}}/>
+          <Tab label="Abgebrochene Aufträge" icon={<CancelIcon style={{fill:"#e68a00"}}/>} {...a11yProps(7)} style={{color:"black"}}/>
+          <Tab label="Fehlerhafte Aufträge" icon={<ErrorOutlineIcon style={{fill:"#e68a00"}}/>} {...a11yProps(8)} style={{color:"black"}}/>
         </Tabs>
       </AppBar>
 

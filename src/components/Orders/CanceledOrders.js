@@ -10,12 +10,12 @@ export default function CanceledOrders() {
    {name: "OT_DESC", label: "Order-Typ", options: {filter: true, sort: true, display: true}}, 
    {name: "O_TIMESTAMP", label: "Zeit", options: {filter: true, sort: true, display: true}},
    {name: "O_PRIO", label: "Priorität",  options: {filter: true,  sort: true, display: true}}, 
-   {name: "O_WH_IDFROM", label: "O_WH_IDFROM", options: {filter: false, sort: false, display: false}},
-   {name: "O_WH_IDTO", label: "O_WH_IDTO", options: {filter: false, sort: true, display: false}},  
-   {name: "O_WH_COORDINATEFROM", label: "Koordinate Von", options: {filter: true, sort: true, display: true}}, 
-   {name: "O_WH_COORDINATETO", label: "Koordinate Nach", options: {filter: true, sort: true, display: true}}, 
+   {name: "O_WH_IDFROM", label: "von Lagerplatz", options: {filter: false, sort: false, display: false}},
+   {name: "O_WH_COORDINATEFROM", label: "von Koordinate", options: {filter: true, sort: true, display: true}}, 
+   {name: "O_WH_IDTO", label: "zu Lagerplatz", options: {filter: false, sort: true, display: false}},  
+   {name: "O_WH_COORDINATETO", label: "nach Koordinate", options: {filter: true, sort: true, display: true}}, 
    {name: "O_FT_IDREQUIREMENT", label: "Benötiges Anbaugerät", options: {filter: true, sort: true, display: true}},
-   {name: "O_OS_ID", label: "O_OS_ID",options: {filter: false, sort: false,display: false}},
+   {name: "O_OS_ID", label: "Status ID",options: {filter: false, sort: false,display: false}},
    {name: "OS_DESC", label: "Status",options: {filter: true,sort: true,display: true}} 
    ];
 
@@ -97,7 +97,7 @@ function cssMessage(message, color)
   sleep(4000).then(() => { 
   document.getElementsByClassName("footer")[0].style.textAlign = "right";
   document.getElementsByClassName("footer")[0].innerHTML = "Powered by ©Flitzmo";
-  document.getElementsByClassName("footer")[0].style.backgroundColor = "#90caf9";
+  document.getElementsByClassName("footer")[0].style.backgroundColor = "#004466";
   });
 }
 
@@ -132,7 +132,7 @@ function rowSelectEvent(curRowSelected, allRowsSelected){
         options={options}/>
     <br/>
     <br/>
-    <Button style={{backgroundColor: "gray"}}
+    <Button style={{backgroundColor: "#e68a00", color:"white"}}
     variant="contained" 
     onClick={SubmitOrders} 
     title="Mit Klick auf diesen Button werden alle ausgewählten Transportaufträge übermittelt.">

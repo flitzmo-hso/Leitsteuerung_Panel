@@ -23,12 +23,15 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Footer from './footer.js';
 import RedditIcon from '@material-ui/icons/Reddit'
 
+import logo from './Flitzmo_Logo.png';
+
 // Import Pages
 import Dashboard from './components/Dashboard.js';
 import Orders from './components/Orders.js';
 import Robots from './components/Robots.js';
 import Map from './components/Map/Map.js';
 import Hilfebereich from './components/Hilfebereich.js';
+import { logDOM } from "@testing-library/react";
 
 
 const drawerWidth = 240;
@@ -61,15 +64,15 @@ const useStyles = makeStyles((theme) => ({
 
   activeTab:{
     "&$selected": {
-      backgroundColor: "#90caf9",
-      color: "white"
+      backgroundColor: "#e68a00",
+      color: "black"
     },
     "&:hover": {
-      backgroundColor: "#90caf9",
-      color: "white"
+      backgroundColor: "#eaeaea",
+      color: "black"
     },
     "&$selected:hover": {
-      backgroundColor: "#90caf9",
+      backgroundColor: "#e68a00",
       color: "black"
     } 
 },
@@ -80,8 +83,8 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerOpen: {
     width: drawerWidth,
-    color: '#fff6e5',
-    backgroundColor: '#6b6969',
+    color: 'black',
+    backgroundColor: '#ffffff',
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
@@ -93,8 +96,8 @@ const useStyles = makeStyles((theme) => ({
       duration: theme.transitions.duration.leavingScreen,
      
     }),
-    color: '#fff6e5',
-    backgroundColor: '#6b6969',
+    color: 'black',
+    backgroundColor: '#ffffff',
     overflowX: 'hidden',
     width: theme.spacing(7) + 1,
     [theme.breakpoints.up('sm')]: {
@@ -114,7 +117,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     padding: theme.spacing(3),
     color:'#fff6e5',
-    backgroundColor:'#2e2e2e'
+    backgroundColor:'white'
   },
 
   imageIcon: {
@@ -148,7 +151,7 @@ function App() {
 
       setSelectedIndex(3);
     } 
-    else if(window.location.href.endsWith("Hilfebereich")){
+    else if(window.location.href.endsWith("Helpdesk")){
 
       setSelectedIndex(4);
     } 
@@ -181,17 +184,17 @@ function App() {
     <div className={classes.root} >
       <Router>
      <CssBaseline /> 
-      <AppBar style={{ background: '#90caf9' }}
+      <AppBar style={{ background: '#00334d' }}
         position="fixed"
         className={clsx(classes.appBar, {
           [classes.appBarShift]: open,
         })}
       >
-          <Footer>
+          <Footer style={{backgroundColor: "#fff6e5"}}>
       </Footer>
         <Toolbar>
           <IconButton
-            style={{ color: '#121212'}}
+            style={{color: '#fffff'}}
             aria-label="open drawer"
             onClick={handleDrawerOpen}
             edge="start"
@@ -199,9 +202,9 @@ function App() {
               [classes.hide]: open,
             })}
           >
-            <MenuIcon />
+            <MenuIcon style={{fill: "#fff6e5"}}/>
           </IconButton>
-          <h2 style={{ color: '#121212'}}>Flitzmo Leitsteuerung</h2>
+          <h2 style={{ color: '#fffff'}}>Flitzmo Leitsteuerung</h2>
   
         </Toolbar>
       </AppBar>
@@ -223,8 +226,9 @@ function App() {
               
         <div className={classes.toolbar}>
 
+        <img height="50"  src={logo} alt="Logo"/>
 
-          <IconButton onClick={handleDrawerClose} style={{ color: '#fff6e5'}}>
+          <IconButton onClick={handleDrawerClose} style={{ color: '#e68a00'}}>
             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>
 
@@ -236,40 +240,40 @@ function App() {
           onClick={event => handleListItemClick(event, 0)}
         >
             <ListItemIcon >
-              <HomeIcon style={{fill: "#fff6e5"}} />
+              <HomeIcon style={{fill: "#e68a00"}} />
             </ListItemIcon >
             <ListItemText primary="Home" />   
          </ListItem>
          <ListItem button component={Link} to="/Orders" key="Orders" className={classes.activeTab} selected={selectedIndex === 1}
           onClick={event => handleListItemClick(event, 1)}>
             <ListItemIcon>
-              <FolderSpecialIcon style={{fill: "#fff6e5"}}/>
+              <FolderSpecialIcon style={{fill: "#e68a00"}}/>
             </ListItemIcon>
             <ListItemText primary="Orders" />   
          </ListItem>
          <ListItem button component={Link} to="/Robots" key="Robots" className={classes.activeTab} selected={selectedIndex === 2}
           onClick={event => handleListItemClick(event, 2)}>
             <ListItemIcon>
-              <RedditIcon style={{fill: "#fff6e5"}}/>
+              <RedditIcon style={{fill: "#e68a00"}}/>
             </ListItemIcon>
             <ListItemText primary="Robots" />   
          </ListItem>
          <ListItem button component={Link} to="/Map" key="Map" className={classes.activeTab} selected={selectedIndex === 3}
           onClick={event => handleListItemClick(event, 3)}>
             <ListItemIcon>
-              <MapIcon style={{fill: "#fff6e5"}}/>
+              <MapIcon style={{fill: "#e68a00"}}/>
             </ListItemIcon>
             <ListItemText primary="Map" />   
          </ListItem>
         </List>
-
+        <Divider/>
         <List>
-        <ListItem button component={Link} to="/Hilfebereich" key="Hilfebereich" className={classes.activeTab} selected={selectedIndex === 4}
+        <ListItem button component={Link} to="/Helpdesk" key="Helpdesk" className={classes.activeTab} selected={selectedIndex === 4}
           onClick={event => handleListItemClick(event, 4)}>
             <ListItemIcon>
-              <HelpIcon style={{fill: "#fff6e5"}} />
+              <HelpIcon style={{fill: "#e68a00"}} />
             </ListItemIcon>
-            <ListItemText primary="Hilfebereich" />   
+            <ListItemText primary="Helpdesk" />   
          </ListItem>  
         </List>  
         <Divider />
@@ -291,7 +295,7 @@ function App() {
             <Route exact path="/Map">
               <Map />
             </Route>
-            <Route exact path="/Hilfebereich">
+            <Route exact path="/Helpdesk">
               <Hilfebereich />
             </Route>
             

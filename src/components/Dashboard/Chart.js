@@ -82,7 +82,9 @@ export default class DashboardChart extends React.PureComponent {
           />
           <Animation />
           <Legend position="bottom" rootComponent={Root} labelComponent={Label} />
-          <Title text="Anzahl Auträge letzte 14 Tage" />
+          <Title text="Anzahl Auträge letzte 14 Tage" 
+          />
+          
           <Stack />
         </Chart>
       </Paper>

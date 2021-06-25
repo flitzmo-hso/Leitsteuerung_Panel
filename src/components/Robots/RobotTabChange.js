@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     width: '100%',
     backgroundColor: theme.palette.background.paper,
-    textColor: "green",
+    textColor: "black",
     textAlign: 'center',
     color: theme.palette.text.secondary,
 
@@ -73,16 +73,17 @@ export default function ScrollableTabsButtonForce() {
     <div className={classes.root}>
       <AppBar position="static" color="default">
         <Tabs
-          TabIndicatorProps={{style: {backgroundColor: "#006064"}}}
+          TabIndicatorProps={{style: {backgroundColor: "#ff9900"}}}
           value={value}
           onChange={handleChange}
           variant="scrollable"
           scrollButtons="on"
-          indicatorColor="primary"
+          indicatorColor="#ff9900"
           textColor="primary"
           aria-label="scrollable force tabs example" >
-          <Tab label="Roboterstatus" icon={<AdbIcon />} {...a11yProps(2)} />
-          <Tab label="Robotsettings" icon={<BuildIcon />} {...a11yProps(3)} />
+
+          <Tab label="Roboterstatus" icon={<AdbIcon style={{fill:"#e68a00"}}/>} {...a11yProps(2)} style={{color:"black"}}/>
+          <Tab label="Robotsettings" icon={<BuildIcon style={{fill:"#e68a00"}}/>} {...a11yProps(3)} style={{color:"black"}}/>
         </Tabs>
       </AppBar>
 

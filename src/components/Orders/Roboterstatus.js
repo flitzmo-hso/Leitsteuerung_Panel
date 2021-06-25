@@ -72,8 +72,8 @@ const useStyles = makeStyles((theme) => ({
             <Card style={{border:"2px solid grey"}}>  
               <CardHeader
               avatar={
-                <Avatar aria-label="recipe" className={classes.avatar} style={{backgroundColor:"green"}}>
-                  <AndroidIcon/>
+                <Avatar aria-label="recipe" className={classes.avatar} style={{backgroundColor:"#e68a00", fill:"#e68a00"}}>
+                  <AndroidIcon style={{fill: "#e68a00"}}/>
                 </Avatar>
               }
               /*action={
