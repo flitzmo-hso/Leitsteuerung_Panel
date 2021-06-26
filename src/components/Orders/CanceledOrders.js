@@ -67,7 +67,11 @@ export default function CanceledOrders() {
       alert("Bitte Datensatz auswählen!"); return; 
     }
 
-      axios.post('http://0.0.0.0:8080/submit_task', selectedData)
+    selectedData.forEach(element => {
+
+      var singleSubmits = filterSelectedData(element);
+
+      axios.post('http://0.0.0.0:8080/submit_task', singleSubmits)
       .then(res => {
       console.log("RESPONSE:", res);
       cssMessage("Erfolgreich übermittelt.", "#4dff88"); 
@@ -78,6 +82,43 @@ export default function CanceledOrders() {
           cssMessage("Fehler beim Übermitteln.", "#9c2c2c");  
     
       }) 
+
+    });
+
+    sleep(1000).then(() => { 
+      //Reload data
+      DatenLaden(); 
+      }); 
+
+    }
+
+    function filterSelectedData(element){
+ 
+      //Delivery Order 
+      console.log(element);
+
+        if (element["O_DP_DELIVERYPOINTTO"] === '' || element["O_DP_DELIVERYPOINTFROM"]  === '' || element["O_WH_COORDINATETO"] === '' || element["O_WH_COORDINATEFROM"] === '')  return undefined;
+
+        var obj = {"task_type": "Delivery", "start_time": 0, "priority": 0,
+            "description": {"dropoff_ingestor": element["O_DP_DELIVERYPOINTTO"], "dropoff_place_name": element["O_WH_COORDINATETO"],
+            "pickup_dispenser": element["O_DP_DELIVERYPOINTFROM"], "pickup_place_name": element["O_WH_COORDINATEFROM"] }};
+
+        console.log("Filtered Obj:", obj);
+
+
+      //Loop Order
+      /*if (element["task_type"] === "Loop") {
+
+        if(element["start_time"] === '' || element["priority"]  === '' || element["num_loops"]  === ''  || 
+        element["num_loops"]  === 0 ||  element["start_name"]  === '' ||  element["finish_name"]  ===  '')  return undefined; 
+
+        obj['task_type'] = "Loop"; obj['start_time'] = parseInt(element["start_time"]); 
+        obj['priority'] = parseInt(element["priority"]); 
+        obj['description'] = {"num_loops": parseInt(element["num_loops"]) , "start_name": element["start_name"], "finish_name": element["finish_name"]};
+      
+    }*/
+
+    return obj;
     }
 
     //Sleep for asynchronous calls

@@ -12,7 +12,7 @@ export default function ERPOrders() {
    {name: "O_PRIO", label: "Priorität",  options: {filter: true,  sort: true, display: true}}, 
    {name: "O_WH_IDFROM", label: "von Lagerplatz", options: {filter: false, sort: false, display: false}},
    {name: "O_WH_COORDINATEFROM", label: "von Koordinate", options: {filter: true, sort: true, display: true}}, 
-   {name: "O_WH_IDTO", label: "nach Lagerplatz", options: {options: {filter: true, sort: true, display: true}}}, 
+   {name: "O_WH_IDTO", label: "nach Lagerplatz", options: {options: {filter: true, sort: true, display: false}}}, 
    {name: "O_WH_COORDINATETO", label: "nach Koordinate", options: {filter: true, sort: true, display: true}}, 
    {name: "O_DP_DELIVERYPOINTFROM", label: "Aufladepunkt", options: {filter: true, sort: true, display: true}}, 
    {name: "O_DP_DELIVERYPOINTTO", label: "Abladepunkt", options: {filter: true, sort: true, display: true}}, 
@@ -26,13 +26,18 @@ export default function ERPOrders() {
   
   const [allData, setAllData] = useState([]); 
   const [selectedData, setSelectedData] =  useState([]); 
+  var sessionId;
+
 
   //Event if data changed
   useEffect(() => { DatenLaden(); });
   
   //Load data
   function DatenLaden(){
-    axios.get('http://0.0.0.0:8080/getDBOrders?status=1')
+
+    if (sessionId  === undefined ){ setSessionId() } 
+
+    axios.get('http://0.0.0.0:8080/getDBOrders?status=1&ordertype=1')
     .then(res => {
     console.log("RESPONSE:", res); //Data from Gateway
 
@@ -52,6 +57,26 @@ export default function ERPOrders() {
 
   }
 
+  function setSessionId(){
+
+    axios.get('http://0.0.0.0:8080/getSessionId')
+    .then(res => {
+    console.log("SessionId:", res.data); //Data from Gateway
+
+    if(res.data.length === 0) { //Check if data is available
+    
+      return;
+    }
+    
+    sessionId = res.data;
+
+    })
+    .catch(err => {
+        console.log(err.message); //Error-Handling
+    })
+
+}
+
   //Check if old data = new data
   function DataAreEqual(data, sortedOrders){
     if(data.sort().join(',') === sortedOrders.sort().join(',')){
@@ -67,40 +92,48 @@ export default function ERPOrders() {
 
     if(selectedData === undefined || selectedData.length === 0) {
       alert("Bitte Datensatz auswählen!"); return; 
-    }
+    }    
+    
+    console.log("Sumbit started:", selectedData);
 
     selectedData.forEach(element => {
 
+  
       var singleSubmits = filterSelectedData(element);
 
       axios.post('http://0.0.0.0:8080/submit_task', singleSubmits)
       .then(res => {
-      console.log("Returned Task ID:", res.data['task_id']);
 
-      PutOrderToDb(singleSubmits, res.data['task_id']);  
+     
+      console.log("Insert data:", "taskid:",  res.data['task_id'], "Order-Nr:", element["O_ID"], "SessionId:", sessionId)
+      if(res.data['task_id'] === undefined || element["O_ID"] === undefined || sessionId === undefined) return;
 
+      insertMapping(res.data['task_id'], element["O_ID"], sessionId);
       cssMessage("Erfolgreich übermittelt.", "#4dff88"); 
     
       })
       .catch(err => {
           console.log(err.message); //Error-Handling
-          cssMessage("Fehler beim Übermitteln.", "#9c2c2c"); 
-    
+          cssMessage("Fehler beim Übermitteln.", "#9c2c2c");     
+        
       }) 
       
     });
 
-    sleep(1000).then(() => { 
+   sleep(900).then(() => { 
     //Reload data
-    DatenLaden(); 
-    });
+    setSelectedData(undefined);
+    //TODO: Hier muss nur der Tab neugeladen werden. --> Event UseEffect triggern reicht. Dann wird MuiDataTable neu geladen 
+    //window.location.reload(); --> Lädt alles neu. Also nicht die richtige Lösung :D 
+
+    }); 
 
     }
 
     //Sleep for asynchronous calls
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
+    function sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
 
 
         //Success and error messages
@@ -116,24 +149,6 @@ function sleep(ms) {
       document.getElementsByClassName("footer")[0].innerHTML = "Powered by ©Flitzmo";
       document.getElementsByClassName("footer")[0].style.backgroundColor = "#004466";
       });
-    }
-
-    function PutOrderToDb(objVal, taskId){
-
-      axios.post('http://0.0.0.0:8080/postOrderAutomatic', objVal)
-      .then(res => {
-      console.log("DB RESPONSE:", res.data[0]);
-  
-        insertMapping(taskId, res.data[0][1], res.data[0][2]);
-    
-      })
-      .catch(err => {
-          console.log(err.message); //Error-Handling
-          cssMessage("Fehler beim Übermitteln.", "#9c2c2c"); 
-    
-      }) 
-  
-  return;
     }
 
     function insertMapping(taskid, orderId, sessionId) {

@@ -15,7 +15,7 @@ import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 
 import ManualOrder from './ManualOrder';
-import OpenOrders from './OpenOrders';
+import AutomaticOrders from './AutomaticOrders';
 import WaitingOrders from './WaitingOrders'
 import Auftragsstatus from './Auftragsstatus'
 import DoneOrders from './DoneOrders';
@@ -111,7 +111,7 @@ export default function ScrollableTabsButtonForce() {
       <TabPanel value={value} index={1}>
         <div className={classes.root}>
             <Grid item xs={12}>   
-            <OpenOrders/> 
+            <AutomaticOrders/> 
             </Grid>
         </div> 
       </TabPanel> 
