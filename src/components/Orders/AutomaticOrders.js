@@ -5,6 +5,7 @@ import axios from "axios";
 
 export default function ERPOrders() {
 
+
   const columns = [ 
    {name: "O_ID", label: "Order-Nr", options: {filter: true, sort: true, display: true}}, 
    {name: "OT_DESC", label: "Order-Typ", options: {filter: true, sort: true, display: true}}, 
@@ -18,16 +19,17 @@ export default function ERPOrders() {
    {name: "O_DP_DELIVERYPOINTTO", label: "Abladepunkt", options: {filter: true, sort: true, display: true}}, 
    {name: "O_FT_IDREQUIREMENT", label: "Benötiges Anbaugerät", options: {filter: true, sort: true, display: true}},
    {name: "O_OS_ID", label: "Status ID",options: {filter: false, sort: false,display: false}},
-   {name: "OS_DESC", label: "Status",options: {filter: true,sort: true,display: true}} 
+   {name: "OS_DESC", label: "Status",options: {filter: true, sort: true,display: true}} 
    ];
 
-  const options = {rowsPerPage: 5, customToolbarSelect: () => { }, filterType: 'checkbox', download: false, 
+
+   const options = {rowsPerPage: 5, customToolbarSelect: () => { }, filterType: 'checkbox', download: false, 
    onRowSelectionChange : (curRowSelected, allRowsSelected) => {rowSelectEvent(curRowSelected, allRowsSelected); }};
   
   const [allData, setAllData] = useState([]); 
   const [selectedData, setSelectedData] =  useState([]); 
-  var sessionId;
 
+  var sessionId;
 
   //Event if data changed
   useEffect(() => { DatenLaden(); });
@@ -48,6 +50,8 @@ export default function ERPOrders() {
 
     if (DataAreEqual(allData, res.data)) return; //Check if data has changed    
     console.log("Data:", res.data);    
+
+    setSelectedData(undefined); // Reset previous data selections before rendering
     setAllData(res.data); //Set new table data
 
     })
@@ -120,14 +124,6 @@ export default function ERPOrders() {
       
     });
 
-   sleep(900).then(() => { 
-    //Reload data
-    setSelectedData(undefined);
-    //TODO: Hier muss nur der Tab neugeladen werden. --> Event UseEffect triggern reicht. Dann wird MuiDataTable neu geladen 
-    //window.location.reload(); --> Lädt alles neu. Also nicht die richtige Lösung :D 
-
-    }); 
-
     }
 
     //Sleep for asynchronous calls
@@ -136,7 +132,7 @@ export default function ERPOrders() {
     }
 
 
-        //Success and error messages
+    //Success and error messages
     function cssMessage(message, color)
     { //Set
       document.getElementsByClassName("footer")[0].style.textAlign = "center";

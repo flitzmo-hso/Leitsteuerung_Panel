@@ -60,7 +60,7 @@ function getTaskStates(){
     //TODO : Hier in Zukunft nur die neuen Änderungen. Dazu OldData mit NewData vergleichen.
     //Aktuell werden noch alle genommen.
 
-    sleep(1500).then(() => { 
+    sleep(1000).then(() => { 
 
       for (let element of newData)
        {
